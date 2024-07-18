@@ -3,31 +3,34 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export const GET = async (req: NextRequest) => {
-  const { searchParams } = new URL(req.url);
-  const slug = searchParams.get('slug');
+export interface Params {
+  slug: string;
+}
+
+export const GET = async (req: NextRequest, { params }: { params: Params }) => {
+  const slug = params.slug;
 
   if (!slug) {
-    return NextResponse.json({ error: "Filtro de busca não informado" }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Filtro de busca não informado' },
+      { status: 400 },
+    );
   }
 
-  const cupons = await prisma.covenant.findUnique({
+  const convenio = await prisma.covenant.findUnique({
     where: {
-      slug: slug
-    },
-    select: {
-      cnpj: true,
+      slug: slug,
     },
     include: {
       cupons: {
         select: {
-          date: true,
+          id: true,
           amount: true,
           value: true,
-        }
-      }
-    }
+        },
+      },
+    },
   });
 
-  return NextResponse.json({ cupons });
-}
+  return NextResponse.json({ convenio });
+};
