@@ -14,8 +14,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={inter.className}>
+      <body className="antialiased bg-zinc-100 max-w-screen-xl mx-auto h-screen flex flex-col items-center justify-center">
+        {children}
+      </body>
     </html>
   )
 }
