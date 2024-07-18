@@ -47,14 +47,18 @@ export function TableCupons({ cupons }: TableCuponsProps) {
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
               <TableCell>{cupom.amount}</TableCell>
-              <TableCell className="text-right">{cupom.value}</TableCell>
+              <TableCell className="text-right">
+                {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">${sumTotalValue}</TableCell>
+            <TableCell className="text-right">
+              ${String(sumTotalValue).replace('.', ',')}
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
