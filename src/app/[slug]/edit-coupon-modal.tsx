@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -37,6 +35,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import MoneyInput from '@/components/currencyInput'
+import { Cupom } from '@/app/[slug]/table-cupons'
 
 const editCouponFormSchema = z.object({
   date: z.date(),
@@ -53,18 +52,54 @@ const editCouponFormSchema = z.object({
 
 type EditCouponFormSchema = z.infer<typeof editCouponFormSchema>
 
-export function EditCouponModal() {
+interface CupomDataProps {
+  cupomData: Cupom
+  onUpdateSuccess: (cupom: Cupom) => void
+}
+
+export function EditCouponModal({ cupomData, onUpdateSuccess }: CupomDataProps) {
   const form = useForm<EditCouponFormSchema>({
     resolver: zodResolver(editCouponFormSchema),
     defaultValues: {
-      amount: 0,
-      value: 0,
+      date: new Date(cupomData.date),
+      amount: cupomData.amount,
+      value: Number(cupomData.value),
     },
   })
-  function handleEditCoupon(data: EditCouponFormSchema) {
-    console.log(data)
-    toast.success('Cupom editado com sucesso.')
-    form.reset()
+
+  async function handleEditCoupon(data: EditCouponFormSchema) {
+    try {
+      const response = await fetch(`/api/cupons/${cupomData.id}/edit`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: data.date,
+          amount: data.amount,
+          value: data.value,
+        }),
+      })
+
+      if (!response.ok) {
+        toast.error('Falha ao atualizar cupom.')
+      }
+
+      const result = await response.json()
+      const updatedCoupon: Cupom = {
+        id: result.id,
+        date: result.date,
+        amount: result.amount,
+        value: String(result.value),
+      }
+      onUpdateSuccess(updatedCoupon)
+
+      toast.success('Cupom editado com sucesso.')
+      form.reset()
+    } catch (e) {
+      console.log(e)
+      toast.error('Erro ao editar cupom.')
+    }
   }
 
   return (

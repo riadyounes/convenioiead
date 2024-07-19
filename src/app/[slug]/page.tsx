@@ -34,10 +34,17 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     return await response.json()
   }, [slug])
 
-  function updateCupons(cupom: Cupom) {
+  function addNewCupom(cupom: Cupom) {
     setConvenio((prev) => ({
       ...prev,
       cupons: [...prev.cupons, cupom],
+    }))
+  }
+
+  function updateCupom(cupom: Cupom) {
+    setConvenio((prev) => ({
+      ...prev,
+      cupons: prev.cupons.map((c) => (c.id === cupom.id ? cupom : c)),
     }))
   }
 
@@ -60,10 +67,10 @@ export default function Convenio({ params }: { params: { slug: string } }) {
         <h1 className="font-semibold">{params.slug}</h1>
         <AddCouponModal
           covenantId={convenio.id}
-          onInsertSuccess={updateCupons}
+          onInsertSuccess={addNewCupom}
         />
       </div>
-      <TableCupons cupons={convenio.cupons} />
+      <TableCupons cupons={convenio.cupons} onUpdateSuccess={updateCupom} />
     </div>
   )
 }

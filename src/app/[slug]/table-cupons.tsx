@@ -21,9 +21,15 @@ export interface Cupom {
 
 interface TableCuponsProps {
   cupons: Cupom[]
+  onUpdateSuccess: (cupom: Cupom) => void
+  onDeletionSuccess: (cupom: Cupom) => void
 }
 
-export function TableCupons({ cupons }: TableCuponsProps) {
+export function TableCupons({
+  cupons,
+  onUpdateSuccess,
+  onDeletionSuccess,
+}: TableCuponsProps) {
   const totalValue = cupons.map((cupom) => Number(cupom.value))
 
   const sumTotalValue = totalValue
@@ -56,7 +62,11 @@ export function TableCupons({ cupons }: TableCuponsProps) {
                 })}
               </TableCell>
               <TableCell className="flex items-center justify-end gap-2">
-                <EditCouponModal />
+                <EditCouponModal
+                  key={i}
+                  cupomData={cupons[i]}
+                  onUpdateSuccess={onUpdateSuccess}
+                />
                 <RemoveCouponModal />
               </TableCell>
             </TableRow>
