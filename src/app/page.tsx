@@ -64,12 +64,12 @@ export default function Home() {
         </SelectContent>
       </Select>
       {selectedConvenio ? (
-        <Link href={`/${selectedConvenio}`} className="w-full">
-          <Button className="flex w-full items-center gap-2">
+        <Button className="flex w-full items-center gap-2" asChild>
+          <Link href={`/${selectedConvenio}`} className="w-full">
             <SignIn className="text-white" size={24} />
             Acessar
-          </Button>
-        </Link>
+          </Link>
+        </Button>
       ) : (
         <Button disabled className="flex w-full items-center gap-2">
           <SignIn className="text-white" size={24} />

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -9,10 +10,11 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { format } from 'date-fns'
+import { Pencil, Trash } from 'lucide-react'
 
 interface Cupom {
   date: string
-  quantity: number
+  amount: number
   value: number
 }
 
@@ -35,7 +37,8 @@ export function TableCupons({ cupons }: TableCuponsProps) {
           <TableRow>
             <TableHead className="w-[140px]">Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
-            <TableHead className="text-right">Valor</TableHead>
+            <TableHead>Valor</TableHead>
+            <TableHead className="text-right"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -44,9 +47,24 @@ export function TableCupons({ cupons }: TableCuponsProps) {
               <TableCell className="font-medium">
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
-              <TableCell>{cupom.quantity}</TableCell>
-              <TableCell className="text-right">
-                {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
+              <TableCell>{cupom.amount}</TableCell>
+              <TableCell>
+                {Number(cupom.value).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              </TableCell>
+              <TableCell className="flex items-center justify-end gap-2">
+                <Button
+                  variant="outline"
+                  className="text-amber-500 hover:text-amber-700"
+                  size="icon"
+                >
+                  <Pencil className="size-4" />
+                </Button>
+                <Button variant="destructive" size="icon">
+                  <Trash className="size-4" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
@@ -55,7 +73,10 @@ export function TableCupons({ cupons }: TableCuponsProps) {
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell className="text-right">
-              ${String(sumTotalValue).replace('.', ',')}
+              {Number(sumTotalValue).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
             </TableCell>
           </TableRow>
         </TableFooter>
