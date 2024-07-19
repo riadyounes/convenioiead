@@ -1000,19 +1000,29 @@ export namespace Prisma {
 
   export type AggregateCovenant = {
     _count: CovenantCountAggregateOutputType | null
+    _avg: CovenantAvgAggregateOutputType | null
+    _sum: CovenantSumAggregateOutputType | null
     _min: CovenantMinAggregateOutputType | null
     _max: CovenantMaxAggregateOutputType | null
   }
 
+  export type CovenantAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CovenantSumAggregateOutputType = {
+    id: number | null
+  }
+
   export type CovenantMinAggregateOutputType = {
-    id: string | null
+    id: number | null
     name: string | null
     cnpj: string | null
     slug: string | null
   }
 
   export type CovenantMaxAggregateOutputType = {
-    id: string | null
+    id: number | null
     name: string | null
     cnpj: string | null
     slug: string | null
@@ -1026,6 +1036,14 @@ export namespace Prisma {
     _all: number
   }
 
+
+  export type CovenantAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CovenantSumAggregateInputType = {
+    id?: true
+  }
 
   export type CovenantMinAggregateInputType = {
     id?: true
@@ -1087,6 +1105,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: CovenantAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CovenantSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: CovenantMinAggregateInputType
@@ -1117,16 +1147,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: CovenantCountAggregateInputType | true
+    _avg?: CovenantAvgAggregateInputType
+    _sum?: CovenantSumAggregateInputType
     _min?: CovenantMinAggregateInputType
     _max?: CovenantMaxAggregateInputType
   }
 
   export type CovenantGroupByOutputType = {
-    id: string
+    id: number
     name: string
     cnpj: string
     slug: string
     _count: CovenantCountAggregateOutputType | null
+    _avg: CovenantAvgAggregateOutputType | null
+    _sum: CovenantSumAggregateOutputType | null
     _min: CovenantMinAggregateOutputType | null
     _max: CovenantMaxAggregateOutputType | null
   }
@@ -1180,7 +1214,7 @@ export namespace Prisma {
       cupons: Prisma.$CuponPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
+      id: number
       name: string
       cnpj: string
       slug: string
@@ -1578,7 +1612,7 @@ export namespace Prisma {
    * Fields of the Covenant model
    */ 
   interface CovenantFieldRefs {
-    readonly id: FieldRef<"Covenant", 'String'>
+    readonly id: FieldRef<"Covenant", 'Int'>
     readonly name: FieldRef<"Covenant", 'String'>
     readonly cnpj: FieldRef<"Covenant", 'String'>
     readonly slug: FieldRef<"Covenant", 'String'>
@@ -1943,31 +1977,35 @@ export namespace Prisma {
   }
 
   export type CuponAvgAggregateOutputType = {
+    id: number | null
     value: Decimal | null
+    covenantId: number | null
   }
 
   export type CuponSumAggregateOutputType = {
+    id: number | null
     value: Decimal | null
+    covenantId: number | null
   }
 
   export type CuponMinAggregateOutputType = {
-    id: string | null
+    id: number | null
     date: Date | null
     code: string | null
     value: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
-    covenantId: string | null
+    covenantId: number | null
   }
 
   export type CuponMaxAggregateOutputType = {
-    id: string | null
+    id: number | null
     date: Date | null
     code: string | null
     value: Decimal | null
     createdAt: Date | null
     updatedAt: Date | null
-    covenantId: string | null
+    covenantId: number | null
   }
 
   export type CuponCountAggregateOutputType = {
@@ -1983,11 +2021,15 @@ export namespace Prisma {
 
 
   export type CuponAvgAggregateInputType = {
+    id?: true
     value?: true
+    covenantId?: true
   }
 
   export type CuponSumAggregateInputType = {
+    id?: true
     value?: true
+    covenantId?: true
   }
 
   export type CuponMinAggregateInputType = {
@@ -2108,13 +2150,13 @@ export namespace Prisma {
   }
 
   export type CuponGroupByOutputType = {
-    id: string
+    id: number
     date: Date
     code: string
     value: Decimal
     createdAt: Date
     updatedAt: Date
-    covenantId: string
+    covenantId: number
     _count: CuponCountAggregateOutputType | null
     _avg: CuponAvgAggregateOutputType | null
     _sum: CuponSumAggregateOutputType | null
@@ -2181,13 +2223,13 @@ export namespace Prisma {
       Covenant: Prisma.$CovenantPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id: string
+      id: number
       date: Date
       code: string
       value: Prisma.Decimal
       createdAt: Date
       updatedAt: Date
-      covenantId: string
+      covenantId: number
     }, ExtArgs["result"]["cupon"]>
     composites: {}
   }
@@ -2582,13 +2624,13 @@ export namespace Prisma {
    * Fields of the Cupon model
    */ 
   interface CuponFieldRefs {
-    readonly id: FieldRef<"Cupon", 'String'>
+    readonly id: FieldRef<"Cupon", 'Int'>
     readonly date: FieldRef<"Cupon", 'DateTime'>
     readonly code: FieldRef<"Cupon", 'String'>
     readonly value: FieldRef<"Cupon", 'Decimal'>
     readonly createdAt: FieldRef<"Cupon", 'DateTime'>
     readonly updatedAt: FieldRef<"Cupon", 'DateTime'>
-    readonly covenantId: FieldRef<"Cupon", 'String'>
+    readonly covenantId: FieldRef<"Cupon", 'Int'>
   }
     
 
@@ -2980,6 +3022,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -3022,16 +3078,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3042,7 +3098,7 @@ export namespace Prisma {
     AND?: CovenantWhereInput | CovenantWhereInput[]
     OR?: CovenantWhereInput[]
     NOT?: CovenantWhereInput | CovenantWhereInput[]
-    id?: StringFilter<"Covenant"> | string
+    id?: IntFilter<"Covenant"> | number
     name?: StringFilter<"Covenant"> | string
     cnpj?: StringFilter<"Covenant"> | string
     slug?: StringFilter<"Covenant"> | string
@@ -3058,7 +3114,7 @@ export namespace Prisma {
   }
 
   export type CovenantWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
+    id?: number
     cnpj?: string
     slug?: string
     AND?: CovenantWhereInput | CovenantWhereInput[]
@@ -3074,15 +3130,17 @@ export namespace Prisma {
     cnpj?: SortOrder
     slug?: SortOrder
     _count?: CovenantCountOrderByAggregateInput
+    _avg?: CovenantAvgOrderByAggregateInput
     _max?: CovenantMaxOrderByAggregateInput
     _min?: CovenantMinOrderByAggregateInput
+    _sum?: CovenantSumOrderByAggregateInput
   }
 
   export type CovenantScalarWhereWithAggregatesInput = {
     AND?: CovenantScalarWhereWithAggregatesInput | CovenantScalarWhereWithAggregatesInput[]
     OR?: CovenantScalarWhereWithAggregatesInput[]
     NOT?: CovenantScalarWhereWithAggregatesInput | CovenantScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Covenant"> | string
+    id?: IntWithAggregatesFilter<"Covenant"> | number
     name?: StringWithAggregatesFilter<"Covenant"> | string
     cnpj?: StringWithAggregatesFilter<"Covenant"> | string
     slug?: StringWithAggregatesFilter<"Covenant"> | string
@@ -3092,13 +3150,13 @@ export namespace Prisma {
     AND?: CuponWhereInput | CuponWhereInput[]
     OR?: CuponWhereInput[]
     NOT?: CuponWhereInput | CuponWhereInput[]
-    id?: StringFilter<"Cupon"> | string
+    id?: IntFilter<"Cupon"> | number
     date?: DateTimeFilter<"Cupon"> | Date | string
     code?: StringFilter<"Cupon"> | string
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
-    covenantId?: StringFilter<"Cupon"> | string
+    covenantId?: IntFilter<"Cupon"> | number
     Covenant?: XOR<CovenantRelationFilter, CovenantWhereInput>
   }
 
@@ -3114,7 +3172,7 @@ export namespace Prisma {
   }
 
   export type CuponWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
+    id?: number
     AND?: CuponWhereInput | CuponWhereInput[]
     OR?: CuponWhereInput[]
     NOT?: CuponWhereInput | CuponWhereInput[]
@@ -3123,7 +3181,7 @@ export namespace Prisma {
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
-    covenantId?: StringFilter<"Cupon"> | string
+    covenantId?: IntFilter<"Cupon"> | number
     Covenant?: XOR<CovenantRelationFilter, CovenantWhereInput>
   }, "id">
 
@@ -3146,17 +3204,16 @@ export namespace Prisma {
     AND?: CuponScalarWhereWithAggregatesInput | CuponScalarWhereWithAggregatesInput[]
     OR?: CuponScalarWhereWithAggregatesInput[]
     NOT?: CuponScalarWhereWithAggregatesInput | CuponScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Cupon"> | string
+    id?: IntWithAggregatesFilter<"Cupon"> | number
     date?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
     code?: StringWithAggregatesFilter<"Cupon"> | string
     value?: DecimalWithAggregatesFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
-    covenantId?: StringWithAggregatesFilter<"Cupon"> | string
+    covenantId?: IntWithAggregatesFilter<"Cupon"> | number
   }
 
   export type CovenantCreateInput = {
-    id?: string
     name: string
     cnpj: string
     slug: string
@@ -3164,7 +3221,7 @@ export namespace Prisma {
   }
 
   export type CovenantUncheckedCreateInput = {
-    id?: string
+    id?: number
     name: string
     cnpj: string
     slug: string
@@ -3172,7 +3229,6 @@ export namespace Prisma {
   }
 
   export type CovenantUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -3180,7 +3236,7 @@ export namespace Prisma {
   }
 
   export type CovenantUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
@@ -3188,28 +3244,26 @@ export namespace Prisma {
   }
 
   export type CovenantCreateManyInput = {
-    id?: string
+    id?: number
     name: string
     cnpj: string
     slug: string
   }
 
   export type CovenantUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type CovenantUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type CuponCreateInput = {
-    id?: string
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
@@ -3219,17 +3273,16 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedCreateInput = {
-    id?: string
+    id?: number
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    covenantId: string
+    covenantId: number
   }
 
   export type CuponUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -3239,27 +3292,26 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    covenantId?: StringFieldUpdateOperationsInput | string
+    covenantId?: IntFieldUpdateOperationsInput | number
   }
 
   export type CuponCreateManyInput = {
-    id?: string
+    id?: number
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    covenantId: string
+    covenantId: number
   }
 
   export type CuponUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -3268,13 +3320,24 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    covenantId?: StringFieldUpdateOperationsInput | string
+    covenantId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -3309,6 +3372,10 @@ export namespace Prisma {
     slug?: SortOrder
   }
 
+  export type CovenantAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type CovenantMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -3321,6 +3388,26 @@ export namespace Prisma {
     name?: SortOrder
     cnpj?: SortOrder
     slug?: SortOrder
+  }
+
+  export type CovenantSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3379,7 +3466,9 @@ export namespace Prisma {
   }
 
   export type CuponAvgOrderByAggregateInput = {
+    id?: SortOrder
     value?: SortOrder
+    covenantId?: SortOrder
   }
 
   export type CuponMaxOrderByAggregateInput = {
@@ -3403,7 +3492,9 @@ export namespace Prisma {
   }
 
   export type CuponSumOrderByAggregateInput = {
+    id?: SortOrder
     value?: SortOrder
+    covenantId?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -3468,6 +3559,14 @@ export namespace Prisma {
     deleteMany?: CuponScalarWhereInput | CuponScalarWhereInput[]
   }
 
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type CuponUncheckedUpdateManyWithoutCovenantNestedInput = {
     create?: XOR<CuponCreateWithoutCovenantInput, CuponUncheckedCreateWithoutCovenantInput> | CuponCreateWithoutCovenantInput[] | CuponUncheckedCreateWithoutCovenantInput[]
     connectOrCreate?: CuponCreateOrConnectWithoutCovenantInput | CuponCreateOrConnectWithoutCovenantInput[]
@@ -3508,6 +3607,17 @@ export namespace Prisma {
     update?: XOR<XOR<CovenantUpdateToOneWithWhereWithoutCuponsInput, CovenantUpdateWithoutCuponsInput>, CovenantUncheckedUpdateWithoutCuponsInput>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3520,6 +3630,33 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3537,17 +3674,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -3603,7 +3729,6 @@ export namespace Prisma {
   }
 
   export type CuponCreateWithoutCovenantInput = {
-    id?: string
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
@@ -3612,7 +3737,7 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedCreateWithoutCovenantInput = {
-    id?: string
+    id?: number
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
@@ -3650,24 +3775,23 @@ export namespace Prisma {
     AND?: CuponScalarWhereInput | CuponScalarWhereInput[]
     OR?: CuponScalarWhereInput[]
     NOT?: CuponScalarWhereInput | CuponScalarWhereInput[]
-    id?: StringFilter<"Cupon"> | string
+    id?: IntFilter<"Cupon"> | number
     date?: DateTimeFilter<"Cupon"> | Date | string
     code?: StringFilter<"Cupon"> | string
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
-    covenantId?: StringFilter<"Cupon"> | string
+    covenantId?: IntFilter<"Cupon"> | number
   }
 
   export type CovenantCreateWithoutCuponsInput = {
-    id?: string
     name: string
     cnpj: string
     slug: string
   }
 
   export type CovenantUncheckedCreateWithoutCuponsInput = {
-    id?: string
+    id?: number
     name: string
     cnpj: string
     slug: string
@@ -3690,21 +3814,20 @@ export namespace Prisma {
   }
 
   export type CovenantUpdateWithoutCuponsInput = {
-    id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type CovenantUncheckedUpdateWithoutCuponsInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     cnpj?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
   }
 
   export type CuponCreateManyCovenantInput = {
-    id?: string
+    id?: number
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
@@ -3713,7 +3836,6 @@ export namespace Prisma {
   }
 
   export type CuponUpdateWithoutCovenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -3722,7 +3844,7 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedUpdateWithoutCovenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
@@ -3731,7 +3853,7 @@ export namespace Prisma {
   }
 
   export type CuponUncheckedUpdateManyWithoutCovenantInput = {
-    id?: StringFieldUpdateOperationsInput | string
+    id?: IntFieldUpdateOperationsInput | number
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
