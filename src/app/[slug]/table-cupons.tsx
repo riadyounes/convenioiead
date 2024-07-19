@@ -27,8 +27,6 @@ export function TableCupons({ cupons }: TableCuponsProps) {
     .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
     .toFixed(2)
 
-  console.log(sumTotalValue)
-
   return (
     <div className="rounded-lg border">
       <Table>
@@ -41,12 +39,12 @@ export function TableCupons({ cupons }: TableCuponsProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {cupons.map((cupom) => (
-            <TableRow key={cupom.id}>
+          {cupons.map((cupom, i) => (
+            <TableRow key={i}>
               <TableCell className="font-medium">
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
-              <TableCell>{cupom.amount}</TableCell>
+              <TableCell>{cupom.quantity}</TableCell>
               <TableCell className="text-right">
                 {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
               </TableCell>

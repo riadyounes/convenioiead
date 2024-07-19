@@ -10,19 +10,21 @@ import {
 } from '@/components/ui/select'
 import { SignIn } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [selectedConvenio, setSelectedConvenio] = useState('')
-  const [convenios, setConvenios] = useState([])
+  const [convenios, setConvenios] = useState<
+    { cnpj: string; name: string; slug: string }[]
+  >([])
 
   const getData = async () => {
-    const response = await fetch("/api/convenios", {
-      method: "GET",
+    const response = await fetch('/api/convenios', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
-    });
+    })
 
     return await response.json()
   }
@@ -37,8 +39,8 @@ export default function Home() {
       }
     }
 
-    void fetch()
-  }, []);
+    fetch()
+  }, [])
 
   const handleSelectChange = (value: string) => {
     setSelectedConvenio(value)
@@ -54,8 +56,8 @@ export default function Home() {
         <SelectContent>
           {convenios.map((convenio, i) => {
             return (
-              <SelectItem key={i} value={convenio['slug']}>
-                {`${convenio['cnpj']} - ${convenio['name']}`}
+              <SelectItem key={i} value={convenio.slug}>
+                {`${convenio.cnpj} - ${convenio.name}`}
               </SelectItem>
             )
           })}

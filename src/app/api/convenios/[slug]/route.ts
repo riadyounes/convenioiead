@@ -7,7 +7,10 @@ export interface CupomParams {
   slug: string
 }
 
-export const GET = async (req: NextRequest, { params }: { params: CupomParams }) => {
+export const GET = async (
+  req: NextRequest,
+  { params }: { params: CupomParams },
+) => {
   const slug = params.slug
 
   if (!slug) {
