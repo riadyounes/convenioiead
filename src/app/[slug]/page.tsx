@@ -1,8 +1,11 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import { AddCouponModal } from './add-coupon-modal'
 import { Cupom, TableCupons } from './table-cupons'
 import { useCallback, useEffect, useState } from 'react'
+import { Input } from '@/components/ui/input'
+import { toast } from 'sonner'
 
 interface Convenio {
   id: string
@@ -11,17 +14,23 @@ interface Convenio {
   slug: string
   cupons: Cupom[]
 }
+const convenioInicial: Convenio = {
+  id: '',
+  name: '',
+  cnpj: '',
+  slug: '',
+  cupons: [],
+}
 
 export default function Convenio({ params }: { params: { slug: string } }) {
-  const { slug } = params
-  const convenioInicial: Convenio = {
-    id: '',
-    name: '',
-    cnpj: '',
-    slug: '',
-    cupons: [],
-  }
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
+  const [accessAdmin, setAccessAdmin] = useState<boolean>(false)
   const [convenio, setConvenio] = useState<Convenio>(convenioInicial)
+
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  const { slug } = params
 
   const getData = useCallback(async () => {
     const response = await fetch(`/api/convenios/${slug}`, {
@@ -54,16 +63,68 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     fetch()
   }, [getData])
 
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (username === 'admin' && password === '1234') {
+      setIsAdmin(true)
+      setAccessAdmin(false)
+      toast.success('Login feito com sucesso')
+    } else {
+      toast.error('Credenciais inválidas')
+    }
+  }
+
+  const handleLogout = () => {
+    setIsAdmin(false)
+    setAccessAdmin(false)
+    toast.success('Usuário desconectado com sucesso')
+  }
+
   return (
     <div className="flex min-h-screen w-full max-w-screen-xl flex-col gap-8 p-4">
-      <div className="flex items-center justify-between">
-        <h1 className="font-semibold">{params.slug}</h1>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex flex-col gap-2">
+          <span className="text-xl font-semibold">Nome: {convenio.name}</span>
+          <span className="text-lg">CPNJ: {convenio.cnpj}</span>
+          {isAdmin ? (
+            <Button onClick={handleLogout}>Sair do modo administrador</Button>
+          ) : (
+            <Button onClick={() => setAccessAdmin(true)}>
+              Acessar como admin
+            </Button>
+          )}
+        </div>
+
         <AddCouponModal
           covenantId={convenio.id}
           onInsertSuccess={updateCupons}
         />
       </div>
-      <TableCupons cupons={convenio.cupons} />
+      {accessAdmin && (
+        <div className="flex flex-col gap-2">
+          <form
+            onSubmit={handleLogin}
+            className="flex flex-col items-center gap-4 md:flex-row"
+          >
+            <Input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Digite o usuário"
+            />
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite a senha"
+            />
+            <Button type="submit" className="w-full">
+              Login
+            </Button>
+          </form>
+        </div>
+      )}
+      <TableCupons cupons={convenio.cupons} isAdmin={isAdmin} />
     </div>
   )
 }

@@ -21,9 +21,10 @@ export interface Cupom {
 
 interface TableCuponsProps {
   cupons: Cupom[]
+  isAdmin: boolean
 }
 
-export function TableCupons({ cupons }: TableCuponsProps) {
+export function TableCupons({ cupons, isAdmin }: TableCuponsProps) {
   const totalValue = cupons.map((cupom) => Number(cupom.value))
 
   const sumTotalValue = totalValue
@@ -39,7 +40,7 @@ export function TableCupons({ cupons }: TableCuponsProps) {
             <TableHead>Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
             <TableHead>Valor</TableHead>
-            <TableHead className="text-right"></TableHead>
+            {isAdmin && <TableHead className="text-right"></TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -55,10 +56,12 @@ export function TableCupons({ cupons }: TableCuponsProps) {
                   currency: 'BRL',
                 })}
               </TableCell>
-              <TableCell className="flex items-center justify-end gap-2">
-                <EditCouponModal />
-                <RemoveCouponModal />
-              </TableCell>
+              {isAdmin && (
+                <TableCell className="flex items-center justify-end gap-2">
+                  <EditCouponModal />
+                  <RemoveCouponModal />
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
