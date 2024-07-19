@@ -36,20 +36,19 @@ import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
+import MoneyInput from '@/components/currencyInput'
+
 const addCouponFormSchema = z.object({
-  couponDate: z.date(),
-  couponAmount: z.preprocess(
+  date: z.date(),
+  amount: z.preprocess(
     (value) => parseFloat(z.string().parse(value)),
     z
       .number({ message: 'O valor esperado é do tipo numérico' })
       .positive('O número deve ser positivo.'),
   ),
-  price: z.preprocess(
-    (value) => parseFloat(z.string().parse(value)),
-    z
-      .number({ message: 'O valor esperado é do tipo numérico' })
-      .positive('O número deve ser positivo.'),
-  ),
+  value: z
+    .number({ message: 'O valor esperado é do tipo numérico' })
+    .positive('O número deve ser positivo.'),
 })
 
 type AddCouponFormSchema = z.infer<typeof addCouponFormSchema>
@@ -58,8 +57,8 @@ export function AddCouponModal() {
   const form = useForm<AddCouponFormSchema>({
     resolver: zodResolver(addCouponFormSchema),
     defaultValues: {
-      couponAmount: 0,
-      price: 0,
+      amount: 0,
+      value: 0,
     },
   })
   function handleAddCoupon(data: AddCouponFormSchema) {
@@ -67,6 +66,7 @@ export function AddCouponModal() {
     toast.success('Cupom adicionado com sucesso.')
     form.reset()
   }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -86,7 +86,7 @@ export function AddCouponModal() {
           >
             <FormField
               control={form.control}
-              name="couponDate"
+              name="date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Data Cupom</FormLabel>
@@ -126,7 +126,7 @@ export function AddCouponModal() {
             />
             <FormField
               control={form.control}
-              name="couponAmount"
+              name="amount"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Número Cupom</FormLabel>
@@ -141,22 +141,11 @@ export function AddCouponModal() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Valor</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Digite o valor"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+            <MoneyInput
+              form={form}
+              label="Valor"
+              name="value"
+              placeholder="Valor"
             />
             <DialogFooter>
               <DialogClose asChild>
