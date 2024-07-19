@@ -15,7 +15,7 @@ import { RemoveCouponModal } from './remove-coupon-modal'
 export interface Cupom {
   id: string
   date: string
-  amount: number
+  code: string
   value: string
 }
 
@@ -41,7 +41,13 @@ export function TableCupons({
   return (
     <div className="rounded-lg border">
       <Table>
-        <TableCaption>Lista de cupons</TableCaption>
+        <TableCaption>
+          Valor que será repassado (3%):{' '}
+          {((Number(sumTotalValue) * 3) / 100).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+          })}
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Data do cupom</TableHead>
@@ -56,7 +62,7 @@ export function TableCupons({
               <TableCell className="font-medium">
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
-              <TableCell>{cupom.amount}</TableCell>
+              <TableCell>{cupom.code}</TableCell>
               <TableCell>
                 {Number(cupom.value).toLocaleString('pt-BR', {
                   style: 'currency',

@@ -12,7 +12,7 @@ CREATE TABLE "covenants" (
 CREATE TABLE "cupons" (
     "id" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
-    "amount" INTEGER NOT NULL,
+    "code" TEXT NOT NULL,
     "value" DECIMAL(14,2) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

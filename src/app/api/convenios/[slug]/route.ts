@@ -29,7 +29,7 @@ export const GET = async (
         select: {
           id: true,
           date: true,
-          amount: true,
+          code: true,
           value: true,
         },
       },

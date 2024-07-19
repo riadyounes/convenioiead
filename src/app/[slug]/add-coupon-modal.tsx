@@ -39,12 +39,7 @@ import { Cupom } from '@/app/[slug]/table-cupons'
 
 const addCouponFormSchema = z.object({
   date: z.date(),
-  amount: z.preprocess(
-    (value) => parseFloat(z.string().parse(value)),
-    z
-      .number({ message: 'O valor esperado é do tipo numérico' })
-      .positive('O número deve ser positivo.'),
-  ),
+  code: z.string({ message: 'Campo obrigatório' }),
   value: z
     .number({ message: 'O valor esperado é do tipo numérico' })
     .positive('O número deve ser positivo.'),
@@ -57,11 +52,14 @@ interface AddCouponModalProps {
   onInsertSuccess: (cupom: Cupom) => void
 }
 
-export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalProps) {
+export function AddCouponModal({
+  covenantId,
+  onInsertSuccess,
+}: AddCouponModalProps) {
   const form = useForm<AddCouponFormSchema>({
     resolver: zodResolver(addCouponFormSchema),
     defaultValues: {
-      amount: 0,
+      code: '',
       value: 0,
     },
   })
@@ -75,7 +73,7 @@ export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalPr
         },
         body: JSON.stringify({
           date: data.date,
-          amount: data.amount,
+          code: data.code,
           value: data.value,
           covenantId,
         }),
@@ -89,7 +87,7 @@ export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalPr
       const newCupomData: Cupom = {
         id: result.id,
         date: data.date.toISOString(),
-        amount: data.amount,
+        code: data.code,
         value: String(data.value),
       }
       onInsertSuccess(newCupomData)
@@ -159,7 +157,7 @@ export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalPr
             />
             <FormField
               control={form.control}
-              name="amount"
+              name="code"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Número Cupom</FormLabel>
@@ -184,9 +182,11 @@ export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalPr
               <DialogClose asChild>
                 <Button variant="outline">Fechar</Button>
               </DialogClose>
-              <Button disabled={form.formState.isSubmitting} type="submit">
-                Salvar
-              </Button>
+              <DialogClose asChild>
+                <Button disabled={form.formState.isSubmitting} type="submit">
+                  Salvar
+                </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>

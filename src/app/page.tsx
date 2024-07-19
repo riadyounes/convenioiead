@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <div className="flex max-w-screen-xl flex-col gap-4">
-      <h1 className="text-3xl font-bold">Convênio de Cashback</h1>
+      <h1 className="text-3xl font-bold lg:text-5xl">Convênio de Cashback</h1>
       <Select onValueChange={handleSelectChange}>
         <SelectTrigger className="w-full min-w-[250px]">
           <SelectValue placeholder="Selecione um convênio" />
@@ -56,7 +56,7 @@ export default function Home() {
         <SelectContent>
           {convenios.map((convenio, i) => {
             return (
-              <SelectItem key={i} value={convenio.slug}>
+              <SelectItem key={i} value={convenio.slug} className="text-lg">
                 {`${convenio.cnpj} - ${convenio.name}`}
               </SelectItem>
             )
@@ -64,14 +64,14 @@ export default function Home() {
         </SelectContent>
       </Select>
       {selectedConvenio ? (
-        <Button className="flex w-full items-center gap-2" asChild>
+        <Button className="flex w-full items-center gap-2" size="lg" asChild>
           <Link href={`/${selectedConvenio}`} className="w-full">
             <SignIn className="text-white" size={24} />
             Acessar
           </Link>
         </Button>
       ) : (
-        <Button disabled className="flex w-full items-center gap-2">
+        <Button disabled className="flex w-full items-center gap-2" size="lg">
           <SignIn className="text-white" size={24} />
           Acessar
         </Button>

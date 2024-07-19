@@ -21,7 +21,7 @@ model Covenant {
 model Cupon {
   id         String   @id @default(cuid())
   date       DateTime
-  amount     Int
+  code       String
   value      Decimal  @db.Decimal(14, 2)
   createdAt  DateTime @default(now()) @map(name: "created_at")
   updatedAt  DateTime @updatedAt @map(name: "updated_at")

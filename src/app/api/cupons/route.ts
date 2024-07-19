@@ -6,9 +6,9 @@ const prisma = new PrismaClient()
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json()
-    const { date, amount, value, covenantId } = body
+    const { date, code, value, covenantId } = body
 
-    if (!date || !amount || !value || !covenantId) {
+    if (!date || !code || !value || !covenantId) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 },
@@ -18,7 +18,7 @@ export const POST = async (req: NextRequest) => {
     const newCupon = await prisma.cupon.create({
       data: {
         date: new Date(date),
-        amount,
+        code,
         value,
         covenantId,
       },

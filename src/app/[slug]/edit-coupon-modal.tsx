@@ -39,12 +39,7 @@ import { Cupom } from '@/app/[slug]/table-cupons'
 
 const editCouponFormSchema = z.object({
   date: z.date(),
-  amount: z.preprocess(
-    (value) => parseFloat(z.string().parse(value)),
-    z
-      .number({ message: 'O valor esperado é do tipo numérico' })
-      .positive('O número deve ser positivo.'),
-  ),
+  code: z.string({ message: 'Campo obrigatório' }),
   value: z
     .number({ message: 'O valor esperado é do tipo numérico' })
     .positive('O número deve ser positivo.'),
@@ -57,12 +52,15 @@ interface CupomDataProps {
   onUpdateSuccess: (cupom: Cupom) => void
 }
 
-export function EditCouponModal({ cupomData, onUpdateSuccess }: CupomDataProps) {
+export function EditCouponModal({
+  cupomData,
+  onUpdateSuccess,
+}: CupomDataProps) {
   const form = useForm<EditCouponFormSchema>({
     resolver: zodResolver(editCouponFormSchema),
     defaultValues: {
       date: new Date(cupomData.date),
-      amount: cupomData.amount,
+      code: cupomData.code,
       value: Number(cupomData.value),
     },
   })
@@ -76,7 +74,7 @@ export function EditCouponModal({ cupomData, onUpdateSuccess }: CupomDataProps) 
         },
         body: JSON.stringify({
           date: data.date,
-          amount: data.amount,
+          code: data.code,
           value: data.value,
         }),
       })
@@ -89,7 +87,7 @@ export function EditCouponModal({ cupomData, onUpdateSuccess }: CupomDataProps) 
       const updatedCoupon: Cupom = {
         id: result.id,
         date: result.date,
-        amount: result.amount,
+        code: result.code,
         value: String(result.value),
       }
       onUpdateSuccess(updatedCoupon)
@@ -167,7 +165,7 @@ export function EditCouponModal({ cupomData, onUpdateSuccess }: CupomDataProps) 
             />
             <FormField
               control={form.control}
-              name="amount"
+              name="code"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Número Cupom</FormLabel>
