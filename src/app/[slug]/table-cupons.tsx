@@ -23,7 +23,7 @@ interface TableCuponsProps {
   cupons: Cupom[]
   isAdmin: boolean
   onUpdateSuccess: (cupom: Cupom) => void
-  onDeletionSuccess: (cupom: Cupom) => void
+  onDeletionSuccess: (cupomId: string) => void
 }
 
 export function TableCupons({
@@ -63,14 +63,19 @@ export function TableCupons({
                   currency: 'BRL',
                 })}
               </TableCell>
-              {isAdmin && (<TableCell className="flex items-center justify-end gap-2">
-                <EditCouponModal
-                  key={i}
-                  cupomData={cupons[i]}
-                  onUpdateSuccess={onUpdateSuccess}
-                />
-                <RemoveCouponModal />
-              </TableCell>)}
+              {isAdmin && (
+                <TableCell className="flex items-center justify-end gap-2">
+                  <EditCouponModal
+                    key={i}
+                    cupomData={cupom}
+                    onUpdateSuccess={onUpdateSuccess}
+                  />
+                  <RemoveCouponModal
+                    cupomId={cupom.id}
+                    onDeletionSuccess={onDeletionSuccess}
+                  />
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,11 +10,40 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Trash } from 'lucide-react'
+import { toast } from 'sonner'
 
-export function RemoveCouponModal() {
-  // function handleRemoveCoupon() {
-  //   toast.success('Cupom removido com sucesso.')
-  // }
+interface RemoveCouponModalProps {
+  cupomId: string
+  onDeletionSuccess: (cupomId: string) => void
+}
+export function RemoveCouponModal({
+  cupomId,
+  onDeletionSuccess,
+}: RemoveCouponModalProps) {
+  async function handleRemoveCoupon() {
+    try {
+      const response = await fetch(`/api/cupons/${cupomId}/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      if (!response.ok) {
+        // Handle non-200 responses
+        const errorData = await response.json()
+        console.log(errorData.error || 'Failed to remove coupon')
+      }
+
+      // If successful
+      onDeletionSuccess(cupomId)
+      toast.success('Cupom removido com sucesso.')
+    } catch (error) {
+      // Handle errors
+      console.error('Error removing coupon:', error)
+      toast.error('Erro ao remover cupom.')
+    }
+  }
 
   return (
     <Dialog>
@@ -39,7 +66,9 @@ export function RemoveCouponModal() {
             <Button variant="outline">Cancelar</Button>
           </DialogClose>
           <DialogClose asChild>
-            <Button variant="destructive">Remover</Button>
+            <Button variant="destructive" onClick={handleRemoveCoupon}>
+              Remover
+            </Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>

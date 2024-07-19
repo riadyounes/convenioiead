@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { AddCouponModal } from './add-coupon-modal'
 import { Cupom, TableCupons } from './table-cupons'
-import { useCallback, useEffect, useState } from 'react'
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 
@@ -42,17 +42,24 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     return await response.json()
   }, [slug])
 
-  function addNewCupom(cupom: Cupom) {
+  function addNewCupom(cupom: Cupom): void {
     setConvenio((prev) => ({
       ...prev,
       cupons: [...prev.cupons, cupom],
     }))
   }
 
-  function updateCupom(cupom: Cupom) {
+  function updateCupom(cupom: Cupom): void {
     setConvenio((prev) => ({
       ...prev,
       cupons: prev.cupons.map((c) => (c.id === cupom.id ? cupom : c)),
+    }))
+  }
+
+  function deleteCupom(cupomId: string): void {
+    setConvenio((prev) => ({
+      ...prev,
+      cupons: prev.cupons.filter((c) => c.id !== cupomId),
     }))
   }
 
@@ -69,7 +76,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     fetch()
   }, [getData])
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: FormEvent) => {
     e.preventDefault()
     if (username === 'admin' && password === '1234') {
       setIsAdmin(true)
@@ -130,7 +137,12 @@ export default function Convenio({ params }: { params: { slug: string } }) {
           </form>
         </div>
       )}
-      <TableCupons cupons={convenio.cupons} onUpdateSuccess={updateCupom} isAdmin={isAdmin} />
+      <TableCupons
+        cupons={convenio.cupons}
+        isAdmin={isAdmin}
+        onUpdateSuccess={updateCupom}
+        onDeletionSuccess={deleteCupom}
+      />
     </div>
   )
 }
