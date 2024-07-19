@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Covenant {
-  id     String  @id @default(cuid())
+  id     Int     @id @default(autoincrement())
   name   String
   cnpj   String  @unique @db.VarChar(18)
   slug   String  @unique
@@ -20,13 +20,13 @@ model Covenant {
 }
 
 model Cupon {
-  id         String   @id @default(cuid())
+  id         Int      @id @default(autoincrement())
   date       DateTime
   code       String
   value      Decimal  @db.Decimal(14, 2)
   createdAt  DateTime @default(now()) @map(name: "created_at")
   updatedAt  DateTime @updatedAt @map(name: "updated_at")
-  covenantId String   @map(name: "covenant_id")
+  covenantId Int      @map(name: "covenant_id")
   Covenant   Covenant @relation(fields: [covenantId], references: [id])
 
   @@map(name: "cupons")
