@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -10,7 +9,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { format } from 'date-fns'
-import { Pencil, Trash } from 'lucide-react'
+
+import { EditCouponModal } from './edit-coupon-modal'
+import { RemoveCouponModal } from './remove-coupon-modal'
 
 interface Cupom {
   date: string
@@ -35,7 +36,7 @@ export function TableCupons({ cupons }: TableCuponsProps) {
         <TableCaption>Lista de cupons</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[140px]">Data do cupom</TableHead>
+            <TableHead>Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
             <TableHead>Valor</TableHead>
             <TableHead className="text-right"></TableHead>
@@ -55,16 +56,8 @@ export function TableCupons({ cupons }: TableCuponsProps) {
                 })}
               </TableCell>
               <TableCell className="flex items-center justify-end gap-2">
-                <Button
-                  variant="outline"
-                  className="text-amber-500 hover:text-amber-700"
-                  size="icon"
-                >
-                  <Pencil className="size-4" />
-                </Button>
-                <Button variant="destructive" size="icon">
-                  <Trash className="size-4" />
-                </Button>
+                <EditCouponModal />
+                <RemoveCouponModal />
               </TableCell>
             </TableRow>
           ))}
