@@ -21,12 +21,14 @@ export interface Cupom {
 
 interface TableCuponsProps {
   cupons: Cupom[]
+  isAdmin: boolean
   onUpdateSuccess: (cupom: Cupom) => void
   onDeletionSuccess: (cupom: Cupom) => void
 }
 
 export function TableCupons({
   cupons,
+  isAdmin,
   onUpdateSuccess,
   onDeletionSuccess,
 }: TableCuponsProps) {
@@ -45,7 +47,7 @@ export function TableCupons({
             <TableHead>Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
             <TableHead>Valor</TableHead>
-            <TableHead className="text-right"></TableHead>
+            {isAdmin && <TableHead className="text-right"></TableHead>}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -61,14 +63,14 @@ export function TableCupons({
                   currency: 'BRL',
                 })}
               </TableCell>
-              <TableCell className="flex items-center justify-end gap-2">
+              {isAdmin && (<TableCell className="flex items-center justify-end gap-2">
                 <EditCouponModal
                   key={i}
                   cupomData={cupons[i]}
                   onUpdateSuccess={onUpdateSuccess}
                 />
                 <RemoveCouponModal />
-              </TableCell>
+              </TableCell>)}
             </TableRow>
           ))}
         </TableBody>
