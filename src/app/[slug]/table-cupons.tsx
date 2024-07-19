@@ -10,10 +10,11 @@ import {
 } from '@/components/ui/table'
 import { format } from 'date-fns'
 
-interface Cupom {
+export interface Cupom {
+  id: string
   date: string
-  quantity: number
-  value: number
+  amount: number
+  value: string
 }
 
 interface TableCuponsProps {
@@ -44,7 +45,7 @@ export function TableCupons({ cupons }: TableCuponsProps) {
               <TableCell className="font-medium">
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
-              <TableCell>{cupom.quantity}</TableCell>
+              <TableCell>{cupom.amount}</TableCell>
               <TableCell className="text-right">
                 {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
               </TableCell>
