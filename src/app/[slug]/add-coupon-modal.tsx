@@ -97,7 +97,11 @@ export function AddCouponModal({
       }
       onInsertSuccess(newCupomData)
       toast.success('Cupom adicionado com sucesso.')
-      form.reset()
+      form.reset({
+        value: 0,
+        code: '',
+        date: undefined,
+      })
     } catch (error) {
       toast.error('Erro ao adicionar cupom.')
     }
@@ -116,7 +120,7 @@ export function AddCouponModal({
   }
 
   return (
-    <>
+    <div>
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">Adicione um cupom</Button>
@@ -216,12 +220,20 @@ export function AddCouponModal({
           </DialogHeader>
           <DialogDescription>
             Você realmente deseja adicionar este cupom?
-            <div>
-              Data: {couponData?.date && format(couponData.date, 'dd/MM/yyyy')}
-            </div>
-            <div>Código: {couponData?.code}</div>
-            <div>Valor: {couponData?.value}</div>
           </DialogDescription>
+          <span className="text-lg text-foreground">
+            Data: {couponData?.date && format(couponData.date, 'dd/MM/yyyy')}
+          </span>
+          <span className="text-lg text-foreground">
+            Código: {couponData?.code}
+          </span>
+          <span className="text-lg text-foreground">
+            Valor:{' '}
+            {Number(couponData?.value).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </span>
           <DialogFooter>
             <Button
               variant="outline"
@@ -233,6 +245,6 @@ export function AddCouponModal({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   )
 }
