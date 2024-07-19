@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -37,6 +35,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import MoneyInput from '@/components/currencyInput'
+import { Cupom } from '@/app/[slug]/table-cupons'
 
 const addCouponFormSchema = z.object({
   date: z.date(),
@@ -53,7 +52,12 @@ const addCouponFormSchema = z.object({
 
 type AddCouponFormSchema = z.infer<typeof addCouponFormSchema>
 
-export function AddCouponModal() {
+interface AddCouponModalProps {
+  covenantId: string
+  onInsertSuccess: (cupom: Cupom) => void
+}
+
+export function AddCouponModal({ covenantId, onInsertSuccess }: AddCouponModalProps) {
   const form = useForm<AddCouponFormSchema>({
     resolver: zodResolver(addCouponFormSchema),
     defaultValues: {
@@ -61,8 +65,37 @@ export function AddCouponModal() {
       value: 0,
     },
   })
-  function handleAddCoupon(data: AddCouponFormSchema) {
-    console.log(data)
+
+  async function handleAddCoupon(data: AddCouponFormSchema) {
+    try {
+      const response = await fetch('/api/cupons', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: data.date,
+          amount: data.amount,
+          value: data.value,
+          covenantId,
+        }),
+      })
+
+      if (!response.ok) {
+        toast.error('Erro ao adicionar coupon.')
+      }
+
+      const result = await response.json()
+      const newCupomData: Cupom = {
+        id: result.id,
+        date: data.date.toISOString(),
+        amount: data.amount,
+        value: String(data.value),
+      }
+      onInsertSuccess(newCupomData)
+    } catch (error) {
+      toast.error('Erro ao adicionar coupon.')
+    }
     toast.success('Cupom adicionado com sucesso.')
     form.reset()
   }
