@@ -9,6 +9,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { format } from 'date-fns'
+import { EditCouponModal } from './edit-coupon-modal'
+import { RemoveCouponModal } from './remove-coupon-modal'
 
 export interface Cupom {
   id: string
@@ -34,9 +36,10 @@ export function TableCupons({ cupons }: TableCuponsProps) {
         <TableCaption>Lista de cupons</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[140px]">Data do cupom</TableHead>
+            <TableHead>Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
-            <TableHead className="text-right">Valor</TableHead>
+            <TableHead>Valor</TableHead>
+            <TableHead className="text-right"></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -46,8 +49,15 @@ export function TableCupons({ cupons }: TableCuponsProps) {
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
               <TableCell>{cupom.amount}</TableCell>
-              <TableCell className="text-right">
-                {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
+              <TableCell>
+                {Number(cupom.value).toLocaleString('pt-BR', {
+                  style: 'currency',
+                  currency: 'BRL',
+                })}
+              </TableCell>
+              <TableCell className="flex items-center justify-end gap-2">
+                <EditCouponModal />
+                <RemoveCouponModal />
               </TableCell>
             </TableRow>
           ))}
@@ -56,7 +66,10 @@ export function TableCupons({ cupons }: TableCuponsProps) {
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
             <TableCell className="text-right">
-              ${String(sumTotalValue).replace('.', ',')}
+              {Number(sumTotalValue).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
             </TableCell>
           </TableRow>
         </TableFooter>
