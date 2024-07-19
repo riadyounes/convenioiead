@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -56,6 +57,9 @@ export function AddCouponModal({
   covenantId,
   onInsertSuccess,
 }: AddCouponModalProps) {
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
+  const [couponData, setCouponData] = useState<AddCouponFormSchema | null>(null)
+
   const form = useForm<AddCouponFormSchema>({
     resolver: zodResolver(addCouponFormSchema),
     defaultValues: {
@@ -80,7 +84,8 @@ export function AddCouponModal({
       })
 
       if (!response.ok) {
-        toast.error('Erro ao adicionar coupon.')
+        toast.error('Erro ao adicionar cupom.')
+        return
       }
 
       const result = await response.json()
@@ -91,106 +96,143 @@ export function AddCouponModal({
         value: String(data.value),
       }
       onInsertSuccess(newCupomData)
+      toast.success('Cupom adicionado com sucesso.')
+      form.reset()
     } catch (error) {
-      toast.error('Erro ao adicionar coupon.')
+      toast.error('Erro ao adicionar cupom.')
     }
-    toast.success('Cupom adicionado com sucesso.')
-    form.reset()
+  }
+
+  function handleSaveClick(data: AddCouponFormSchema) {
+    setCouponData(data)
+    setIsConfirmDialogOpen(true)
+  }
+
+  function handleConfirm() {
+    if (couponData) {
+      handleAddCoupon(couponData)
+      setIsConfirmDialogOpen(false)
+    }
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Adicione um cupom</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Adicionar um cupom</DialogTitle>
-          <DialogDescription>
-            Adicione um cupom. Clique em salvar para concluir.
-          </DialogDescription>
-        </DialogHeader>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleAddCoupon)}
-            className="flex flex-col gap-4"
-          >
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Data Cupom</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'pl-3 text-left font-normal',
-                            !field.value && 'text-muted-foreground',
-                          )}
-                        >
-                          {field.value ? (
-                            format(field.value, 'dd/MM/yyyy')
-                          ) : (
-                            <span>Selecione a data</span>
-                          )}
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        locale={ptBR}
-                        mode="single"
-                        selected={field.value}
-                        onSelect={field.onChange}
-                        disabled={(date) => date < new Date('1900-01-01')}
-                        initialFocus
+    <>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Adicione um cupom</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Adicionar um cupom</DialogTitle>
+            <DialogDescription>
+              Adicione um cupom. Clique em salvar para concluir.
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSaveClick)}
+              className="flex flex-col gap-4"
+            >
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Data Cupom</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={'outline'}
+                            className={cn(
+                              'pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground',
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, 'dd/MM/yyyy')
+                            ) : (
+                              <span>Selecione a data</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          locale={ptBR}
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) => date < new Date('1900-01-01')}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Código do Cupom</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Digite o código do Cupom"
+                        {...field}
                       />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Número Cupom</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="number"
-                      placeholder="Digite o número Cupom"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <MoneyInput
-              form={form}
-              label="Valor"
-              name="value"
-              placeholder="Valor"
-            />
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Fechar</Button>
-              </DialogClose>
-              <DialogClose asChild>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <MoneyInput
+                form={form}
+                label="Valor"
+                name="value"
+                placeholder="Valor"
+              />
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button variant="outline">Fechar</Button>
+                </DialogClose>
                 <Button disabled={form.formState.isSubmitting} type="submit">
                   Salvar
                 </Button>
-              </DialogClose>
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isConfirmDialogOpen} onOpenChange={setIsConfirmDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirmar Cupom</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            Você realmente deseja adicionar este cupom?
+            <div>
+              Data: {couponData?.date && format(couponData.date, 'dd/MM/yyyy')}
+            </div>
+            <div>Código: {couponData?.code}</div>
+            <div>Valor: {couponData?.value}</div>
+          </DialogDescription>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsConfirmDialogOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button onClick={handleConfirm}>Confirmar</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }

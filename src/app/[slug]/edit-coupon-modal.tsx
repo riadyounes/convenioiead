@@ -95,7 +95,6 @@ export function EditCouponModal({
       toast.success('Cupom editado com sucesso.')
       form.reset()
     } catch (e) {
-      console.log(e)
       toast.error('Erro ao editar cupom.')
     }
   }

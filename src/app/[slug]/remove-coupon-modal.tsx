@@ -30,17 +30,12 @@ export function RemoveCouponModal({
       })
 
       if (!response.ok) {
-        // Handle non-200 responses
-        const errorData = await response.json()
-        console.log(errorData.error || 'Failed to remove coupon')
+        toast.error('Erro ao remover cupom.')
       }
 
-      // If successful
       onDeletionSuccess(cupomId)
       toast.success('Cupom removido com sucesso.')
     } catch (error) {
-      // Handle errors
-      console.error('Error removing coupon:', error)
       toast.error('Erro ao remover cupom.')
     }
   }
