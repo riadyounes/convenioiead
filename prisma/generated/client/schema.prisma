@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Covenant {
+  id     String  @id @default(cuid())
+  name   String
+  cnpj   String  @unique @db.VarChar(18)
+  slug   String  @unique
+  cupons Cupon[]
+
+  @@map(name: "covenants")
+}
+
+model Cupon {
+  id         String   @id @default(cuid())
+  date       DateTime
+  code       String
+  value      Decimal  @db.Decimal(14, 2)
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  covenantId String   @map(name: "covenant_id")
+  Covenant   Covenant @relation(fields: [covenantId], references: [id])
+
+  @@map(name: "cupons")
+}
