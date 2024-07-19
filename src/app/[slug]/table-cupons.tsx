@@ -10,58 +10,22 @@ import {
 } from '@/components/ui/table'
 import { format } from 'date-fns'
 
-const cupons = [
-  {
-    id: 1,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '250.00',
-  },
-  {
-    id: 2,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '250.00',
-  },
-  {
-    id: 3,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '350.05',
-  },
-  {
-    id: 4,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '450.50',
-  },
-  {
-    id: 5,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '550.00',
-  },
-  {
-    id: 6,
-    date: new Date().toISOString(),
-    amount: 10,
-    value: '200.00',
-  },
-  {
-    id: 7,
-    date: new Date().toISOString(),
-    amount: 20,
-    value: '300.00',
-  },
-]
+interface Cupom {
+  date: string
+  quantity: number
+  value: number
+}
 
-export function TableCupons() {
+interface TableCuponsProps {
+  cupons: Cupom[]
+}
+
+export function TableCupons({ cupons }: TableCuponsProps) {
   const totalValue = cupons.map((cupom) => Number(cupom.value))
 
-  const sumTotalValue = totalValue.reduce(
-    (previousValue, currentValue) => previousValue + currentValue,
-    0,
-  )
+  const sumTotalValue = totalValue
+    .reduce((previousValue, currentValue) => previousValue + currentValue, 0)
+    .toFixed(2)
 
   console.log(sumTotalValue)
 
@@ -83,14 +47,18 @@ export function TableCupons() {
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
               <TableCell>{cupom.amount}</TableCell>
-              <TableCell className="text-right">{cupom.value}</TableCell>
+              <TableCell className="text-right">
+                {String(Number(cupom.value).toFixed(2)).replace('.', ',')}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TableCell colSpan={3}>Total</TableCell>
-            <TableCell className="text-right">${sumTotalValue}</TableCell>
+            <TableCell className="text-right">
+              ${String(sumTotalValue).replace('.', ',')}
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>
