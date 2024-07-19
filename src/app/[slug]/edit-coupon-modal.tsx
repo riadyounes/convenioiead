@@ -38,7 +38,7 @@ import { toast } from 'sonner'
 
 import MoneyInput from '@/components/currencyInput'
 
-const addCouponFormSchema = z.object({
+const editCouponFormSchema = z.object({
   date: z.date(),
   amount: z.preprocess(
     (value) => parseFloat(z.string().parse(value)),
@@ -51,17 +51,17 @@ const addCouponFormSchema = z.object({
     .positive('O número deve ser positivo.'),
 })
 
-type AddCouponFormSchema = z.infer<typeof addCouponFormSchema>
+type EditCouponFormSchema = z.infer<typeof editCouponFormSchema>
 
 export function EditCouponModal() {
-  const form = useForm<AddCouponFormSchema>({
-    resolver: zodResolver(addCouponFormSchema),
+  const form = useForm<EditCouponFormSchema>({
+    resolver: zodResolver(editCouponFormSchema),
     defaultValues: {
       amount: 0,
       value: 0,
     },
   })
-  function handleAddCoupon(data: AddCouponFormSchema) {
+  function handleEditCoupon(data: EditCouponFormSchema) {
     console.log(data)
     toast.success('Cupom editado com sucesso.')
     form.reset()
@@ -87,7 +87,7 @@ export function EditCouponModal() {
         </DialogHeader>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleAddCoupon)}
+            onSubmit={form.handleSubmit(handleEditCoupon)}
             className="flex flex-col gap-4"
           >
             <FormField

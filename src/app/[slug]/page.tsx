@@ -58,7 +58,10 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     <div className="flex min-h-screen w-full max-w-screen-xl flex-col gap-8 p-4">
       <div className="flex items-center justify-between">
         <h1 className="font-semibold">{params.slug}</h1>
-        <AddCouponModal covenantId={convenio.id} onInsertSuccess={updateCupons} />
+        <AddCouponModal
+          covenantId={convenio.id}
+          onInsertSuccess={updateCupons}
+        />
       </div>
       <TableCupons cupons={convenio.cupons} />
     </div>

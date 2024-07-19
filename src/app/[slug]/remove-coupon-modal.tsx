@@ -15,7 +15,7 @@ import { Trash } from 'lucide-react'
 
 export function RemoveCouponModal() {
   // function handleRemoveCoupon() {
-  //   toast.success('Cupom editado com sucesso.')
+  //   toast.success('Cupom removido com sucesso.')
   // }
 
   return (
