@@ -18,7 +18,7 @@ export const DELETE = async (
 
   try {
     await prisma.cupon.delete({
-      where: { id: cupomId },
+      where: { id: Number(cupomId) },
     })
 
     return NextResponse.json({ message: 'Cupom excluído com sucesso.' })

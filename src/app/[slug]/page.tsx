@@ -56,10 +56,10 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     }))
   }
 
-  function deleteCupom(cupomId: string): void {
+  function deleteCupom(cupomId: number): void {
     setConvenio((prev) => ({
       ...prev,
-      cupons: prev.cupons.filter((c) => c.id !== cupomId),
+      cupons: prev.cupons.filter((c) => Number(c.id) !== Number(cupomId)),
     }))
   }
 
@@ -109,7 +109,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
         </div>
 
         <AddCouponModal
-          covenantId={convenio.id}
+          covenantId={Number(convenio.id)}
           onInsertSuccess={addNewCupom}
         />
       </div>

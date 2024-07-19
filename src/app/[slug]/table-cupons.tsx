@@ -13,7 +13,7 @@ import { EditCouponModal } from './edit-coupon-modal'
 import { RemoveCouponModal } from './remove-coupon-modal'
 
 export interface Cupom {
-  id: string
+  id: number
   date: string
   code: string
   value: string
@@ -23,7 +23,7 @@ interface TableCuponsProps {
   cupons: Cupom[]
   isAdmin: boolean
   onUpdateSuccess: (cupom: Cupom) => void
-  onDeletionSuccess: (cupomId: string) => void
+  onDeletionSuccess: (cupomId: number) => void
 }
 
 export function TableCupons({
@@ -77,7 +77,7 @@ export function TableCupons({
                     onUpdateSuccess={onUpdateSuccess}
                   />
                   <RemoveCouponModal
-                    cupomId={cupom.id}
+                    cupomId={Number(cupom.id)}
                     onDeletionSuccess={onDeletionSuccess}
                   />
                 </TableCell>
