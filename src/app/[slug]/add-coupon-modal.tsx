@@ -49,7 +49,7 @@ const addCouponFormSchema = z.object({
 type AddCouponFormSchema = z.infer<typeof addCouponFormSchema>
 
 interface AddCouponModalProps {
-  covenantId: string
+  covenantId: number
   onInsertSuccess: (cupom: Cupom) => void
 }
 

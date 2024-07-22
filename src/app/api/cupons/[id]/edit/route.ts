@@ -16,7 +16,7 @@ export const PATCH = async (
 
   try {
     const updatedCupom = await prisma.cupon.update({
-      where: { id: cupomId },
+      where: { id: Number(cupomId) },
       data: {
         date: new Date(date),
         code,

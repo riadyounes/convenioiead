@@ -13,8 +13,8 @@ import { Trash } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface RemoveCouponModalProps {
-  cupomId: string
-  onDeletionSuccess: (cupomId: string) => void
+  cupomId: number
+  onDeletionSuccess: (cupomId: number) => void
 }
 export function RemoveCouponModal({
   cupomId,
@@ -33,7 +33,7 @@ export function RemoveCouponModal({
         toast.error('Erro ao remover cupom.')
       }
 
-      onDeletionSuccess(cupomId)
+      onDeletionSuccess(Number(cupomId))
       toast.success('Cupom removido com sucesso.')
     } catch (error) {
       toast.error('Erro ao remover cupom.')
