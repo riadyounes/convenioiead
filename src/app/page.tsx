@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { SignIn } from '@phosphor-icons/react/dist/ssr'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -48,6 +49,11 @@ export default function Home() {
 
   return (
     <div className="flex max-w-screen-xl flex-col gap-4">
+      <div className="flex flex-col items-center md:flex-row md:gap-5">
+        <Image src="/1.png" alt="" width={180} height={180} />
+        <Image src="/2.png" alt="" width={180} height={180} />
+        <Image src="/3.png" alt="" width={180} height={180} />
+      </div>
       <h1 className="text-3xl font-bold lg:text-5xl">Convênio de Cashback</h1>
       <Select onValueChange={handleSelectChange}>
         <SelectTrigger className="w-full min-w-[250px]">
