@@ -1993,6 +1993,7 @@ export namespace Prisma {
     date: Date | null
     code: string | null
     value: Decimal | null
+    address: string | null
     createdAt: Date | null
     updatedAt: Date | null
     covenantId: number | null
@@ -2003,6 +2004,7 @@ export namespace Prisma {
     date: Date | null
     code: string | null
     value: Decimal | null
+    address: string | null
     createdAt: Date | null
     updatedAt: Date | null
     covenantId: number | null
@@ -2013,6 +2015,7 @@ export namespace Prisma {
     date: number
     code: number
     value: number
+    address: number
     createdAt: number
     updatedAt: number
     covenantId: number
@@ -2037,6 +2040,7 @@ export namespace Prisma {
     date?: true
     code?: true
     value?: true
+    address?: true
     createdAt?: true
     updatedAt?: true
     covenantId?: true
@@ -2047,6 +2051,7 @@ export namespace Prisma {
     date?: true
     code?: true
     value?: true
+    address?: true
     createdAt?: true
     updatedAt?: true
     covenantId?: true
@@ -2057,6 +2062,7 @@ export namespace Prisma {
     date?: true
     code?: true
     value?: true
+    address?: true
     createdAt?: true
     updatedAt?: true
     covenantId?: true
@@ -2154,6 +2160,7 @@ export namespace Prisma {
     date: Date
     code: string
     value: Decimal
+    address: string | null
     createdAt: Date
     updatedAt: Date
     covenantId: number
@@ -2183,6 +2190,7 @@ export namespace Prisma {
     date?: boolean
     code?: boolean
     value?: boolean
+    address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     covenantId?: boolean
@@ -2194,6 +2202,7 @@ export namespace Prisma {
     date?: boolean
     code?: boolean
     value?: boolean
+    address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     covenantId?: boolean
@@ -2205,6 +2214,7 @@ export namespace Prisma {
     date?: boolean
     code?: boolean
     value?: boolean
+    address?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     covenantId?: boolean
@@ -2227,6 +2237,7 @@ export namespace Prisma {
       date: Date
       code: string
       value: Prisma.Decimal
+      address: string | null
       createdAt: Date
       updatedAt: Date
       covenantId: number
@@ -2628,6 +2639,7 @@ export namespace Prisma {
     readonly date: FieldRef<"Cupon", 'DateTime'>
     readonly code: FieldRef<"Cupon", 'String'>
     readonly value: FieldRef<"Cupon", 'Decimal'>
+    readonly address: FieldRef<"Cupon", 'String'>
     readonly createdAt: FieldRef<"Cupon", 'DateTime'>
     readonly updatedAt: FieldRef<"Cupon", 'DateTime'>
     readonly covenantId: FieldRef<"Cupon", 'Int'>
@@ -2992,6 +3004,7 @@ export namespace Prisma {
     date: 'date',
     code: 'code',
     value: 'value',
+    address: 'address',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     covenantId: 'covenantId'
@@ -3014,6 +3027,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3154,6 +3175,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"Cupon"> | Date | string
     code?: StringFilter<"Cupon"> | string
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
+    address?: StringNullableFilter<"Cupon"> | string | null
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
     covenantId?: IntFilter<"Cupon"> | number
@@ -3165,6 +3187,7 @@ export namespace Prisma {
     date?: SortOrder
     code?: SortOrder
     value?: SortOrder
+    address?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     covenantId?: SortOrder
@@ -3179,6 +3202,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"Cupon"> | Date | string
     code?: StringFilter<"Cupon"> | string
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
+    address?: StringNullableFilter<"Cupon"> | string | null
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
     covenantId?: IntFilter<"Cupon"> | number
@@ -3190,6 +3214,7 @@ export namespace Prisma {
     date?: SortOrder
     code?: SortOrder
     value?: SortOrder
+    address?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     covenantId?: SortOrder
@@ -3208,6 +3233,7 @@ export namespace Prisma {
     date?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
     code?: StringWithAggregatesFilter<"Cupon"> | string
     value?: DecimalWithAggregatesFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
+    address?: StringNullableWithAggregatesFilter<"Cupon"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Cupon"> | Date | string
     covenantId?: IntWithAggregatesFilter<"Cupon"> | number
@@ -3267,6 +3293,7 @@ export namespace Prisma {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     Covenant: CovenantCreateNestedOneWithoutCuponsInput
@@ -3277,6 +3304,7 @@ export namespace Prisma {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     covenantId: number
@@ -3286,6 +3314,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Covenant?: CovenantUpdateOneRequiredWithoutCuponsNestedInput
@@ -3296,6 +3325,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     covenantId?: IntFieldUpdateOperationsInput | number
@@ -3306,6 +3336,7 @@ export namespace Prisma {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     covenantId: number
@@ -3315,6 +3346,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3324,6 +3356,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     covenantId?: IntFieldUpdateOperationsInput | number
@@ -3450,9 +3483,29 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type CovenantRelationFilter = {
     is?: CovenantWhereInput
     isNot?: CovenantWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type CuponCountOrderByAggregateInput = {
@@ -3460,6 +3513,7 @@ export namespace Prisma {
     date?: SortOrder
     code?: SortOrder
     value?: SortOrder
+    address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     covenantId?: SortOrder
@@ -3476,6 +3530,7 @@ export namespace Prisma {
     date?: SortOrder
     code?: SortOrder
     value?: SortOrder
+    address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     covenantId?: SortOrder
@@ -3486,6 +3541,7 @@ export namespace Prisma {
     date?: SortOrder
     code?: SortOrder
     value?: SortOrder
+    address?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     covenantId?: SortOrder
@@ -3525,6 +3581,24 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type CuponCreateNestedManyWithoutCovenantInput = {
@@ -3597,6 +3671,10 @@ export namespace Prisma {
     decrement?: Decimal | DecimalJsLike | number | string
     multiply?: Decimal | DecimalJsLike | number | string
     divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type CovenantUpdateOneRequiredWithoutCuponsNestedInput = {
@@ -3698,6 +3776,20 @@ export namespace Prisma {
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -3728,10 +3820,39 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type CuponCreateWithoutCovenantInput = {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3741,6 +3862,7 @@ export namespace Prisma {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3779,6 +3901,7 @@ export namespace Prisma {
     date?: DateTimeFilter<"Cupon"> | Date | string
     code?: StringFilter<"Cupon"> | string
     value?: DecimalFilter<"Cupon"> | Decimal | DecimalJsLike | number | string
+    address?: StringNullableFilter<"Cupon"> | string | null
     createdAt?: DateTimeFilter<"Cupon"> | Date | string
     updatedAt?: DateTimeFilter<"Cupon"> | Date | string
     covenantId?: IntFilter<"Cupon"> | number
@@ -3831,6 +3954,7 @@ export namespace Prisma {
     date: Date | string
     code: string
     value: Decimal | DecimalJsLike | number | string
+    address?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -3839,6 +3963,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3848,6 +3973,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3857,6 +3983,7 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     code?: StringFieldUpdateOperationsInput | string
     value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    address?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

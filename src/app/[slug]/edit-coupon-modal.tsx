@@ -43,6 +43,7 @@ const editCouponFormSchema = z.object({
   value: z
     .number({ message: 'O valor esperado é do tipo numérico' })
     .positive('O número deve ser positivo.'),
+  address: z.string({ message: 'Campo obrigatório' }),
 })
 
 type EditCouponFormSchema = z.infer<typeof editCouponFormSchema>
@@ -61,9 +62,12 @@ export function EditCouponModal({
     defaultValues: {
       date: new Date(cupomData.date),
       code: cupomData.code,
+      address: cupomData.address,
       value: Number(cupomData.value),
     },
   })
+
+  console.log(form.getValues('address'))
 
   async function handleEditCoupon(data: EditCouponFormSchema) {
     try {
@@ -76,6 +80,7 @@ export function EditCouponModal({
           date: data.date,
           code: data.code,
           value: data.value,
+          address: data.address,
         }),
       })
 
@@ -84,10 +89,12 @@ export function EditCouponModal({
       }
 
       const result = await response.json()
+
       const updatedCoupon: Cupom = {
         id: result.id,
         date: result.date,
         code: result.code,
+        address: result.address,
         value: String(result.value),
       }
       onUpdateSuccess(updatedCoupon)
@@ -184,6 +191,23 @@ export function EditCouponModal({
               label="Valor"
               name="value"
               placeholder="Valor"
+            />
+            <FormField
+              control={form.control}
+              name="address"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Endereço</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Digite o endereço"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
             <DialogFooter>
               <DialogClose asChild>

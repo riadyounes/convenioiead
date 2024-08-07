@@ -31,6 +31,7 @@ export const GET = async (
           date: true,
           code: true,
           value: true,
+          address: true,
         },
       },
     },

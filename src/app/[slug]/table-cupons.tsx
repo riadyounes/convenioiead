@@ -17,6 +17,7 @@ export interface Cupom {
   date: string
   code: string
   value: string
+  address: string
 }
 
 interface TableCuponsProps {
@@ -53,6 +54,7 @@ export function TableCupons({
             <TableHead>Data do cupom</TableHead>
             <TableHead>Número do cupom</TableHead>
             <TableHead>Valor</TableHead>
+            <TableHead>Endereço</TableHead>
             {isAdmin && <TableHead className="text-right"></TableHead>}
           </TableRow>
         </TableHeader>
@@ -63,12 +65,14 @@ export function TableCupons({
                 {format(new Date(cupom.date), 'dd/MM/yyyy')}
               </TableCell>
               <TableCell>{cupom.code}</TableCell>
+
               <TableCell>
                 {Number(cupom.value).toLocaleString('pt-BR', {
                   style: 'currency',
                   currency: 'BRL',
                 })}
               </TableCell>
+              <TableCell>{cupom.address}</TableCell>
               {isAdmin && (
                 <TableCell className="flex items-center justify-end gap-2">
                   <EditCouponModal

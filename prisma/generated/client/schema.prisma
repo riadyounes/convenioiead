@@ -24,6 +24,7 @@ model Cupon {
   date       DateTime
   code       String
   value      Decimal  @db.Decimal(14, 2)
+  address    String?
   createdAt  DateTime @default(now()) @map(name: "created_at")
   updatedAt  DateTime @updatedAt @map(name: "updated_at")
   covenantId Int      @map(name: "covenant_id")

@@ -44,6 +44,7 @@ const addCouponFormSchema = z.object({
   value: z
     .number({ message: 'O valor esperado é do tipo numérico' })
     .positive('O número deve ser positivo.'),
+  address: z.string({ message: 'Campo obrigatório' }),
 })
 
 type AddCouponFormSchema = z.infer<typeof addCouponFormSchema>
@@ -65,6 +66,7 @@ export function AddCouponModal({
     defaultValues: {
       code: '',
       value: 0,
+      address: '',
     },
   })
 
@@ -79,6 +81,7 @@ export function AddCouponModal({
           date: data.date,
           code: data.code,
           value: data.value,
+          address: data.address,
           covenantId,
         }),
       })
@@ -93,6 +96,7 @@ export function AddCouponModal({
         id: result.id,
         date: data.date.toISOString(),
         code: data.code,
+        address: data.address,
         value: String(data.value),
       }
       onInsertSuccess(newCupomData)
@@ -101,6 +105,7 @@ export function AddCouponModal({
         value: 0,
         code: '',
         date: undefined,
+        address: '',
       })
     } catch (error) {
       toast.error('Erro ao adicionar cupom.')
@@ -198,6 +203,23 @@ export function AddCouponModal({
                 label="Valor"
                 name="value"
                 placeholder="Valor"
+              />
+              <FormField
+                control={form.control}
+                name="address"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Endereço</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="text"
+                        placeholder="Digite o endereço"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
               <DialogFooter>
                 <DialogClose asChild>

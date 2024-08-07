@@ -131,6 +131,7 @@ exports.Prisma.CuponScalarFieldEnum = {
   date: 'date',
   code: 'code',
   value: 'value',
+  address: 'address',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   covenantId: 'covenantId'
@@ -144,6 +145,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

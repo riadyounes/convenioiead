@@ -8,7 +8,7 @@ export const PATCH = async (
   { params }: { params: { id: string } },
 ) => {
   const cupomId = params.id
-  const { date, code, value } = await req.json()
+  const { date, code, value, address } = await req.json()
 
   if (!cupomId) {
     return NextResponse.json({ error: 'Cupom ID is required' }, { status: 400 })
@@ -21,6 +21,7 @@ export const PATCH = async (
         date: new Date(date),
         code,
         value: parseFloat(value),
+        address,
       },
     })
 
