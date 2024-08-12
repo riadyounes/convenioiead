@@ -10,11 +10,13 @@ datasource db {
 }
 
 model Covenant {
-  id     Int     @id @default(autoincrement())
-  name   String
-  cnpj   String  @unique @db.VarChar(18)
-  slug   String  @unique
-  cupons Cupon[]
+  id       Int     @id @default(autoincrement())
+  name     String
+  cnpj     String  @unique @db.VarChar(18)
+  slug     String  @unique
+  user     String  @unique
+  password String
+  cupons   Cupon[]
 
   @@map(name: "covenants")
 }
