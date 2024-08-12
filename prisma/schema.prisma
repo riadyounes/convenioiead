@@ -9,12 +9,17 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model Covenant {
   id       Int     @id @default(autoincrement())
   name     String
   cnpj     String  @unique @db.VarChar(18)
   slug     String  @unique
-  user     String  @unique
+  userName String  @unique @map("user_name")
   password String
   cupons   Cupon[]
 
@@ -33,4 +38,15 @@ model Cupon {
   Covenant   Covenant @relation(fields: [covenantId], references: [id])
 
   @@map(name: "cupons")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  userName  String   @map("user_name")
+  password  String
+  role      Role
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @map("updated_at")
+
+  @@map(name: "users")
 }

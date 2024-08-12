@@ -8,18 +8,18 @@
 */
 -- AlterTable
 ALTER TABLE "covenants" ADD COLUMN     "password" TEXT,
-ADD COLUMN     "user" TEXT;
+ADD COLUMN     "user_name" TEXT;
 
 -- Populate user and password columns
 UPDATE covenants cv
 SET
-    user = (SELECT regexp_replace(cnpj, '\D', '', 'g') FROM covenants WHERE id = cv.id),
+    user_name = (SELECT regexp_replace(cnpj, '\D', '', 'g') FROM covenants WHERE id = cv.id),
     password = ''
 WHERE cv.id IN (SELECT id FROM covenants);
 
 -- CreateIndex
-CREATE UNIQUE INDEX "covenants_user_key" ON "covenants"("user");
+CREATE UNIQUE INDEX "covenants_user_key" ON "covenants"("user_name");
 
--- Add constraint
-ALTER TABLE covenants ALTER COLUMN user SET NOT NULL;
-ALTER TABLE covenants ALTER COLUMN password SET NOT NULL;
+-- Add not null constraints
+ALTER TABLE "covenants" ALTER COLUMN "user_name" SET NOT NULL;
+ALTER TABLE "covenants" ALTER COLUMN "password" SET NOT NULL;
