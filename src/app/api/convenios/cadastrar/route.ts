@@ -45,6 +45,9 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(newCovenant, { status: 201 })
   } catch (error) {
     console.error(error)
-    return NextResponse.json({ error: 'Erro ao realizar novo cadastro' }, { status: 500 })
+    return NextResponse.json(
+      { error: 'Erro ao realizar novo cadastro' },
+      { status: 500 },
+    )
   }
 }
