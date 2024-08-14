@@ -1,6 +1,6 @@
 import { PrismaClient } from '../../../../../prisma/generated/client'
 import { NextRequest, NextResponse } from 'next/server'
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
 
     if (!cnpj || !name) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Por favor preencha os campos' },
         { status: 400 },
       )
     }
@@ -45,6 +45,6 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(newCovenant, { status: 201 })
   } catch (error) {
     console.error(error)
-    return NextResponse.json({ error: 'An error occurred' }, { status: 500 })
+    return NextResponse.json({ error: 'Erro ao realizar novo cadastro' }, { status: 500 })
   }
 }
