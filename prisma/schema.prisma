@@ -15,13 +15,11 @@ enum Role {
 }
 
 model Covenant {
-  id       Int     @id @default(autoincrement())
-  name     String
-  cnpj     String  @unique @db.VarChar(18)
-  slug     String  @unique
-  userName String  @unique @map("user_name")
-  password String
-  cupons   Cupon[]
+  id     Int     @id @default(autoincrement())
+  name   String
+  cnpj   String  @unique @db.VarChar(18)
+  slug   String  @unique
+  cupons Cupon[]
 
   @@map(name: "covenants")
 }
@@ -40,13 +38,13 @@ model Cupon {
   @@map(name: "cupons")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  userName  String   @map("user_name")
-  password  String
-  role      Role
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @map("updated_at")
+// model User {
+//   id        Int      @id @default(autoincrement())
+//   userName  String   @map("user_name")
+//   password  String
+//   role      Role
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @map("updated_at")
 
-  @@map(name: "users")
-}
+//   @@map(name: "users")
+// }
