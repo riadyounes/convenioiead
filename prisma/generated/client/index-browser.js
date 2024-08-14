@@ -123,7 +123,9 @@ exports.Prisma.CovenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
   cnpj: 'cnpj',
-  slug: 'slug'
+  slug: 'slug',
+  userName: 'userName',
+  password: 'password'
 };
 
 exports.Prisma.CuponScalarFieldEnum = {
@@ -135,6 +137,15 @@ exports.Prisma.CuponScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   covenantId: 'covenantId'
+};
+
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  userName: 'userName',
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -151,11 +162,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.Role = exports.$Enums.Role = {
+  USER: 'USER',
+  ADMIN: 'ADMIN'
+};
 
 exports.Prisma.ModelName = {
   Covenant: 'Covenant',
-  Cupon: 'Cupon'
+  Cupon: 'Cupon',
+  User: 'User'
 };
 
 /**
