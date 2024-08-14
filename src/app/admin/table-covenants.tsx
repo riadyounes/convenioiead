@@ -61,7 +61,7 @@ export function TableCovenants() {
   }
 
   return (
-    <div className="w-full rounded-lg border">
+    <div className="w-full rounded-lg border p-2">
       <Table>
         <TableCaption>Lista de convênios</TableCaption>
         <TableHeader>
@@ -84,7 +84,7 @@ export function TableCovenants() {
             })}
         </TableBody>
       </Table>
-      <Pagination className="flex items-center justify-end">
+      <Pagination className="mt-2 flex items-center justify-end">
         <PaginationContent>
           {Array.from({ length: totalPages }, (_, index) => (
             <PaginationItem
