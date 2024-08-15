@@ -150,7 +150,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/sandro/Documents/software_projects/convenioiead/prisma/generated/client",
+      "value": "/home/riad/Documentos/www/convenioiead/prisma/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -164,7 +164,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/sandro/Documents/software_projects/convenioiead/prisma/schema.prisma",
+    "sourceFilePath": "/home/riad/Documentos/www/convenioiead/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -178,6 +178,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

@@ -68,6 +68,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
       try {
         const data = await getData()
         setConvenio(data.convenio)
+        console.log(data.convenio)
       } catch (error) {
         console.error(error)
       }
@@ -87,7 +88,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
         },
         body: JSON.stringify({
           covenantId: convenio.id,
-          user_name: username,
+          userName: username,
           password,
         }),
       })

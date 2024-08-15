@@ -15,6 +15,8 @@ import {
 } from '@/components/ui/table'
 import { useEffect, useState } from 'react'
 
+import { ChangePassword } from './change-password'
+
 export interface Covenant {
   cnpj: string
   name: string
@@ -78,7 +80,9 @@ export function TableCovenants() {
                 <TableRow key={covenant.cnpj}>
                   <TableCell className="font-medium">{covenant.name}</TableCell>
                   <TableCell>{covenant.cnpj}</TableCell>
-                  <TableCell className="text-right">Ações em breve</TableCell>
+                  <TableCell className="flex items-center justify-end gap-2 text-right">
+                    <ChangePassword />
+                  </TableCell>
                 </TableRow>
               )
             })}

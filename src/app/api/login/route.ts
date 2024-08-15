@@ -6,9 +6,9 @@ const prisma = new PrismaClient()
 
 export const POST = async (req: NextRequest) => {
   try {
-    const { covenantId, user_name, password } = await req.json()
+    const { covenantId, userName, password } = await req.json()
 
-    if (!covenantId || !user_name || !password) {
+    if (!covenantId || !userName || !password) {
       return NextResponse.json(
         { error: 'Preencha os campos obrigatórios' },
         { status: 400 },
@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     const user = await prisma.user.findUnique({
-      where: { userName: user_name },
+      where: { userName },
       select: {
         id: true,
         password: true,

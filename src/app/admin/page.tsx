@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { TableCovenants } from './table-covenants'
 import Link from 'next/link'
+import { Toaster } from '@/components/ui/sonner'
 
 export default function Admin() {
   return (
@@ -10,6 +11,7 @@ export default function Admin() {
           <Link href="/admin/convenio">Cadastrar novo convênio</Link>
         </Button>
         <TableCovenants />
+        <Toaster richColors />
       </div>
     </>
   )

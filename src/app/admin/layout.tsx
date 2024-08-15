@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,7 +31,7 @@ export default function AdminLayout({
     <html lang="en" className={inter.className}>
       <body className="bg-zinc-100 antialiased">
         <header className="flex h-20 w-full items-center justify-between bg-zinc-800 p-4">
-          <Button asChild variant="ghost" className="w-[220px] text-zinc-200">
+          <Button asChild variant="link" className="w-[220px] text-zinc-200">
             <Link href="/admin">Home</Link>
           </Button>
           <Dialog>
@@ -56,6 +57,7 @@ export default function AdminLayout({
         <main className="min-h-screen w-full">
           {isAuthenticated ? children : 'Não autenticado'}
         </main>
+        <Toaster richColors />
       </body>
     </html>
   )
