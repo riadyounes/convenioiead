@@ -7,9 +7,9 @@ const prisma = new PrismaClient()
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json()
-    const { cnpj, name } = body
+    const { cnpj, name, password } = body
 
-    if (!cnpj || !name) {
+    if (!cnpj || !name || !password) {
       return NextResponse.json(
         { error: 'Por favor preencha os campos' },
         { status: 400 },
@@ -17,7 +17,7 @@ export const POST = async (req: NextRequest) => {
     }
 
     const sanitizedCnpj = cnpj.replace(/\D/g, '')
-    const hashedPassword = await bcrypt.hash(sanitizedCnpj, 8)
+    const hashedPassword = await bcrypt.hash(password, 8)
     const slug = `${cnpj.replace(/\D/g, '-').replace(/^-|-$/g, '')}-${name
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')

@@ -1,7 +1,7 @@
 -- This is an empty migration.
 WITH inserted_users AS (
     INSERT INTO users (user_name, password, role, updated_at) values
-        ('admin', '$2a$08$NjDFVeausjU0cezF2cIFZOkYEAvhXPetknjsKVVPy0fNXvWBdMPnC', 'ADMIN', NOW()),
+        ('admin', '$2a$08$K00lmstf81zxZQgHPAKc.OXCshXv4RT7Sgc.Qkt72wTwPZ9RXWfTW', 'ADMIN', NOW()),
         ('00354249000103', '$2a$08$mjU421IhVVQwWBmpLOz0y.dP4Ryy.UlZ55FvJYowGZYg7aivaisYG', 'USER', NOW()),
         ('00830456000189', '$2a$08$1la7zfneCdDhlIBWt519M.SQ2FoYnyd/zXWoW1FCZQKi6Bsk3Rhly', 'USER', NOW()),
         ('01468490000118', '$2a$08$z4YE0FWN4enfw/6J4Bbf7uRfepngjMw5s0fb5KKK4VIz3fuPhaYZ6', 'USER', NOW()),
