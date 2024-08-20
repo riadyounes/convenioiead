@@ -1,9 +1,9 @@
 'use client'
 
+import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { AddCouponModal } from './add-coupon-modal'
 import { Cupom, TableCupons } from './table-cupons'
-import { FormEvent, useCallback, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 
@@ -68,6 +68,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
       try {
         const data = await getData()
         setConvenio(data.convenio)
+        console.log(data.convenio)
       } catch (error) {
         console.error(error)
       }
@@ -76,14 +77,35 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     fetch()
   }, [getData])
 
-  const handleLogin = (e: FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault()
-    if (username === 'admin' && password === '1234') {
-      setIsAdmin(true)
-      setAccessAdmin(false)
-      toast.success('Login feito com sucesso')
-    } else {
-      toast.error('Credenciais inválidas')
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          covenantId: convenio.id,
+          userName: username,
+          password,
+        }),
+      })
+      const data = await response.json()
+
+      if (response.ok) {
+        setIsAdmin(true)
+        setAccessAdmin(false)
+        setPassword('')
+        setUsername('')
+        toast.success('Login feito com sucesso')
+      } else {
+        toast.error(data.error || 'Credenciais inválidas')
+      }
+    } catch (error) {
+      console.error(error)
+      toast.error('Erro ao tentar fazer login')
     }
   }
 

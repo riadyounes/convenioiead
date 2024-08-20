@@ -15,6 +15,8 @@ import {
 } from '@/components/ui/table'
 import { useEffect, useState } from 'react'
 
+import { ChangePassword } from './change-password'
+
 export interface Covenant {
   cnpj: string
   name: string
@@ -61,7 +63,7 @@ export function TableCovenants() {
   }
 
   return (
-    <div className="w-full rounded-lg border">
+    <div className="w-full rounded-lg border p-2">
       <Table>
         <TableCaption>Lista de convênios</TableCaption>
         <TableHeader>
@@ -78,13 +80,15 @@ export function TableCovenants() {
                 <TableRow key={covenant.cnpj}>
                   <TableCell className="font-medium">{covenant.name}</TableCell>
                   <TableCell>{covenant.cnpj}</TableCell>
-                  <TableCell className="text-right">Ações em breve</TableCell>
+                  <TableCell className="flex items-center justify-end gap-2 text-right">
+                    <ChangePassword />
+                  </TableCell>
                 </TableRow>
               )
             })}
         </TableBody>
       </Table>
-      <Pagination className="flex items-center justify-end">
+      <Pagination className="mt-2 flex items-center justify-end">
         <PaginationContent>
           {Array.from({ length: totalPages }, (_, index) => (
             <PaginationItem
