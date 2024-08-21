@@ -6,6 +6,7 @@ import { AddCouponModal } from './add-coupon-modal'
 import { Cupom, TableCupons } from './table-cupons'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
+import { Broom } from '@phosphor-icons/react/dist/ssr'
 
 interface Convenio {
   id: string
@@ -28,11 +29,22 @@ export default function Convenio({ params }: { params: { slug: string } }) {
   const [convenio, setConvenio] = useState<Convenio>(convenioInicial)
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [startDate, setStartDate] = useState<string>('')
+  const [endDate, setEndDate] = useState<string>('')
 
   const { slug } = params
 
   const getData = useCallback(async () => {
-    const response = await fetch(`/api/convenios/${slug}`, {
+    const url = new URL(`/api/convenios/${slug}`, window.location.href)
+
+    if (startDate) {
+      url.searchParams.append('startDate', startDate)
+    }
+    if (endDate) {
+      url.searchParams.append('endDate', endDate)
+    }
+
+    const response = await fetch(url.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +52,7 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     })
 
     return await response.json()
-  }, [slug])
+  }, [slug, startDate, endDate])
 
   function addNewCupom(cupom: Cupom): void {
     setConvenio((prev) => ({
@@ -115,6 +127,11 @@ export default function Convenio({ params }: { params: { slug: string } }) {
     toast.success('Usuário desconectado com sucesso')
   }
 
+  function handleClearFilterCupons() {
+    setStartDate('')
+    setEndDate('')
+  }
+
   return (
     <div className="flex min-h-screen w-full max-w-screen-xl flex-col gap-8 p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -129,11 +146,12 @@ export default function Convenio({ params }: { params: { slug: string } }) {
             </Button>
           )}
         </div>
-
-        <AddCouponModal
-          covenantId={Number(convenio.id)}
-          onInsertSuccess={addNewCupom}
-        />
+        {isAdmin && (
+          <AddCouponModal
+            covenantId={Number(convenio.id)}
+            onInsertSuccess={addNewCupom}
+          />
+        )}
       </div>
       {accessAdmin && (
         <div className="flex flex-col gap-2">
@@ -157,6 +175,29 @@ export default function Convenio({ params }: { params: { slug: string } }) {
               Login
             </Button>
           </form>
+        </div>
+      )}
+      {isAdmin && (
+        <div className="flex flex-col gap-4 md:flex-row">
+          <Input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            placeholder="Data inicial"
+          />
+          <Input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            placeholder="Data final"
+          />
+          <Button
+            onClick={handleClearFilterCupons}
+            className="flex w-full items-center gap-1 md:w-[220px]"
+          >
+            <Broom className="size-4" />
+            Limpar filtro
+          </Button>
         </div>
       )}
       <TableCupons
