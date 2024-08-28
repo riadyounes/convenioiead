@@ -255,6 +255,9 @@ export function AddCouponModal({
               currency: 'BRL',
             })}
           </span>
+          <span className="text-lg text-foreground">
+            Endereço: {couponData?.address}
+          </span>
           <DialogFooter>
             <Button
               variant="outline"
