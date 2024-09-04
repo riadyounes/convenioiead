@@ -7,6 +7,7 @@ import { Cupom, TableCupons } from './table-cupons'
 import { Input } from '@/components/ui/input'
 import { toast } from 'sonner'
 import { Broom } from '@phosphor-icons/react/dist/ssr'
+import Link from 'next/link'
 
 interface Convenio {
   id: string
@@ -138,13 +139,18 @@ export default function Convenio({ params }: { params: { slug: string } }) {
         <div className="flex flex-col gap-2">
           <span className="text-xl font-semibold">Nome: {convenio.name}</span>
           <span className="text-lg">CPNJ: {convenio.cnpj}</span>
-          {isAdmin ? (
-            <Button onClick={handleLogout}>Sair do modo administrador</Button>
-          ) : (
-            <Button onClick={() => setAccessAdmin(true)}>
-              Acessar como admin
+          <div className="flex items-center gap-4">
+            {isAdmin ? (
+              <Button onClick={handleLogout}>Sair do modo administrador</Button>
+            ) : (
+              <Button onClick={() => setAccessAdmin(true)}>
+                Acessar como admin
+              </Button>
+            )}
+            <Button asChild variant="outline">
+              <Link href="/relatorio">Relatório</Link>
             </Button>
-          )}
+          </div>
         </div>
         {isAdmin && (
           <AddCouponModal
