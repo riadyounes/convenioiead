@@ -439,7 +439,11 @@ export function AddCouponModal({
                         </SelectTrigger>
                         <SelectContent>
                           {addressOptions.map((option, index) => (
-                            <SelectItem key={index} value={option.value} className="text-lg">
+                            <SelectItem
+                              key={index}
+                              value={option.value}
+                              className="text-lg"
+                            >
                               {option.label}
                             </SelectItem>
                           ))}
