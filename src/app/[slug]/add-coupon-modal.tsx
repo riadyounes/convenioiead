@@ -10,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -37,6 +36,13 @@ import { toast } from 'sonner'
 
 import MoneyInput from '@/components/currencyInput'
 import { Cupom } from '@/app/[slug]/table-cupons'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 
 const addCouponFormSchema = z.object({
   date: z.date(),
@@ -69,6 +75,219 @@ export function AddCouponModal({
       address: '',
     },
   })
+
+  const addressOptions = [
+    {
+      value: 'MEGA VILLA - ADEMIR JACINTO FERREIRA',
+      label: 'MEGA VILLA - ADEMIR JACINTO FERREIRA',
+    },
+    {
+      value: 'VILA YOLANDA - ADERSON DOS SANTOS MACHADO',
+      label: 'VILA YOLANDA - ADERSON DOS SANTOS MACHADO',
+    },
+    {
+      value: 'VILA SOLIDARIA - ADILSON PEREIRA DA SILVA',
+      label: 'VILA SOLIDARIA - ADILSON PEREIRA DA SILVA',
+    },
+    {
+      value: 'PROFILURB I - ANTÔNIO OSÓRIO',
+      label: 'PROFILURB I - ANTÔNIO OSÓRIO',
+    },
+    {
+      value: 'JD SÃO PAULO - ARGEMIRO RIBEIRO',
+      label: 'JD SÃO PAULO - ARGEMIRO RIBEIRO',
+    },
+    {
+      value: 'TRÊS LAGOAS - ARGEU DOURADO',
+      label: 'TRÊS LAGOAS - ARGEU DOURADO',
+    },
+    {
+      value: 'JD. CEDRO - ARI JOSÉ GARCIA DE OLIVEIRA',
+      label: 'JD. CEDRO - ARI JOSÉ GARCIA DE OLIVEIRA',
+    },
+    {
+      value: 'ARROIO DURADO - AUGUSTO BRANDÃO',
+      label: 'ARROIO DURADO - AUGUSTO BRANDÃO',
+    },
+    {
+      value: 'JD. CALIFORMIA - AURÉLIO EVARISTO',
+      label: 'JD. CALIFORMIA - AURÉLIO EVARISTO',
+    },
+    {
+      value: 'VILA A - CHRISTIAN RIBEIRO MARINS',
+      label: 'VILA A - CHRISTIAN RIBEIRO MARINS',
+    },
+    {
+      value: 'MORUNBI 4 - CLAUDIO A. DA SILVA',
+      label: 'MORUNBI 4 - CLAUDIO A. DA SILVA',
+    },
+    {
+      value: 'ALTO DA BOA VISTA - CUSTÓDIO ADEMAR DA SILVA',
+      label: 'ALTO DA BOA VISTA - CUSTÓDIO ADEMAR DA SILVA',
+    },
+    {
+      value: 'JD. BELA VISTA - DANIEL TONET',
+      label: 'JD. BELA VISTA - DANIEL TONET',
+    },
+    {
+      value: 'JD SOLEDADE - EDUARDO JOSÉ DA SILVA',
+      label: 'JD SOLEDADE - EDUARDO JOSÉ DA SILVA',
+    },
+    {
+      value: 'JD ALVORADA - ELIAS CEZAR DE ANDRADE',
+      label: 'JD ALVORADA - ELIAS CEZAR DE ANDRADE',
+    },
+    { value: 'VILA C - ELISEU FERREIRA', label: 'VILA C - ELISEU FERREIRA' },
+    {
+      value: 'CAMPOS DO IGUAÇU - FABIO TAVORA',
+      label: 'CAMPOS DO IGUAÇU - FABIO TAVORA',
+    },
+    { value: 'VILA MIRANDA - GEL MARCOS', label: 'VILA MIRANDA - GEL MARCOS' },
+    {
+      value: 'JD. CURITIBANO - GILBERTO VIEIRA LOPES',
+      label: 'JD. CURITIBANO - GILBERTO VIEIRA LOPES',
+    },
+    {
+      value: 'SEDE - ISAIAS CARDOSO DOS SANTOS',
+      label: 'SEDE - ISAIAS CARDOSO DOS SANTOS',
+    },
+    {
+      value: 'JD. AMÉRICA - ISAIAS CARDOSO DOS SANTOS JUNIOR',
+      label: 'JD. AMÉRICA - ISAIAS CARDOSO DOS SANTOS JUNIOR',
+    },
+    {
+      value: 'JD COLOMBELLI - IVANIR JOSÉ GUERRA',
+      label: 'JD COLOMBELLI - IVANIR JOSÉ GUERRA',
+    },
+    {
+      value: 'JD ESMERALDA - IVO MACHADO',
+      label: 'JD ESMERALDA - IVO MACHADO',
+    },
+    {
+      value: 'JD SÃO LUIZ - IZAIAS NEVES DA SILVA',
+      label: 'JD SÃO LUIZ - IZAIAS NEVES DA SILVA',
+    },
+    {
+      value: 'JD DUARTE - JACÓ DE FIGUEIREDO CESÁRIO',
+      label: 'JD DUARTE - JACÓ DE FIGUEIREDO CESÁRIO',
+    },
+    {
+      value: 'OURO VERDE - JAVAN FERREIRA DA SILVA',
+      label: 'OURO VERDE - JAVAN FERREIRA DA SILVA',
+    },
+    {
+      value: 'JARDIM JUPIRA - JESIEL ALVES',
+      label: 'JARDIM JUPIRA - JESIEL ALVES',
+    },
+    {
+      value: 'MORUMBI 3 - JOÃO ALBERTO FRANCHIN',
+      label: 'MORUMBI 3 - JOÃO ALBERTO FRANCHIN',
+    },
+    {
+      value: 'ROSE MAGALHÃES - JOÃO CARLOS DE MATOS',
+      label: 'ROSE MAGALHÃES - JOÃO CARLOS DE MATOS',
+    },
+    {
+      value: 'PQ PRESIDENTE 1 - JOÃO GONÇALVES MOREIRA',
+      label: 'PQ PRESIDENTE 1 - JOÃO GONÇALVES MOREIRA',
+    },
+    {
+      value: 'VILA CARIMÃ - JOÃO GUIMARAES FACUNDES',
+      label: 'VILA CARIMÃ - JOÃO GUIMARAES FACUNDES',
+    },
+    {
+      value: 'JD EUROPA - JOEL BARROS DE OLIVEIRA',
+      label: 'JD EUROPA - JOEL BARROS DE OLIVEIRA',
+    },
+    {
+      value: 'JD VERANEIO - JOEL FERREIRA',
+      label: 'JD VERANEIO - JOEL FERREIRA',
+    },
+    {
+      value: 'PORTAL DA FOZ - JOSÉ ANTONIO DE AMORIM',
+      label: 'PORTAL DA FOZ - JOSÉ ANTONIO DE AMORIM',
+    },
+    {
+      value: 'PQ PRESIDENTE 2 - JOSÉ EDMUNDO RODRIGUES DA COSTA',
+      label: 'PQ PRESIDENTE 2 - JOSÉ EDMUNDO RODRIGUES DA COSTA',
+    },
+    {
+      value: 'CIDADE NOVA - JOSÉ RENACIR DE SOUZA',
+      label: 'CIDADE NOVA - JOSÉ RENACIR DE SOUZA',
+    },
+    {
+      value: 'JD IPANEMA - JOSÉ VICENTE DE ALMEIDA',
+      label: 'JD IPANEMA - JOSÉ VICENTE DE ALMEIDA',
+    },
+    {
+      value: 'PQ PATRIARCA - LOURIVAL GERALDO FERREIRA',
+      label: 'PQ PATRIARCA - LOURIVAL GERALDO FERREIRA',
+    },
+    {
+      value: 'JD PARANÁ - LUIS DOS SANTOS LEAL',
+      label: 'JD PARANÁ - LUIS DOS SANTOS LEAL',
+    },
+    {
+      value: 'PROFILURB 2 - MÁRIO BARBOSA',
+      label: 'PROFILURB 2 - MÁRIO BARBOSA',
+    },
+    {
+      value: 'CIUDAD DEL ESTE - MIKAIAS FREITAS DE MELO',
+      label: 'CIUDAD DEL ESTE - MIKAIAS FREITAS DE MELO',
+    },
+    {
+      value: 'JD DAS PALMEIRAS - NILSON DOS SANTOS',
+      label: 'JD DAS PALMEIRAS - NILSON DOS SANTOS',
+    },
+    {
+      value: 'JD CLAUDIA - NORADI EVANGELISTA',
+      label: 'JD CLAUDIA - NORADI EVANGELISTA',
+    },
+    {
+      value: 'PORTO BELO - OSMAR MARCOS BARBOSA',
+      label: 'PORTO BELO - OSMAR MARCOS BARBOSA',
+    },
+    {
+      value: 'JD ITAIPU - PAULO SUDRÉ DE SOUZA',
+      label: 'JD ITAIPU - PAULO SUDRÉ DE SOUZA',
+    },
+    {
+      value: 'MORUMBI 2 - PEDRO DOS SANTOS',
+      label: 'MORUMBI 2 - PEDRO DOS SANTOS',
+    },
+    {
+      value: 'JD. DAS FLORES - RENATO MENDES BASTOS',
+      label: 'JD. DAS FLORES - RENATO MENDES BASTOS',
+    },
+    {
+      value: 'MORUMBI 1 - RUBENS ANTÔNIO DE SOUZA',
+      label: 'MORUMBI 1 - RUBENS ANTÔNIO DE SOUZA',
+    },
+    {
+      value: 'SOL DE MAIO - SILVIO CESAR CORREIA',
+      label: 'SOL DE MAIO - SILVIO CESAR CORREIA',
+    },
+    {
+      value: 'JD SÃO ROQUE - VANDERLEI TOMAZ',
+      label: 'JD SÃO ROQUE - VANDERLEI TOMAZ',
+    },
+    {
+      value: 'JD TRES BANDEIRAS - WANCLER HOTZ',
+      label: 'JD TRES BANDEIRAS - WANCLER HOTZ',
+    },
+    {
+      value: 'JD SANTA RITA - WERLEN GUIMARÃES BARROS',
+      label: 'JD SANTA RITA - WERLEN GUIMARÃES BARROS',
+    },
+    {
+      value: 'JD GUAÍRA - WEVERTON PEREIRA',
+      label: 'JD GUAÍRA - WEVERTON PEREIRA',
+    },
+    {
+      value: 'VILA BANCARIA - JOSUÉ DE OLIVEIRA',
+      label: 'VILA BANCARIA - JOSUÉ DE OLIVEIRA',
+    },
+  ]
 
   async function handleAddCoupon(data: AddCouponFormSchema) {
     try {
@@ -211,11 +430,25 @@ export function AddCouponModal({
                   <FormItem>
                     <FormLabel>Endereço</FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Digite o endereço"
-                        {...field}
-                      />
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Selecione" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {addressOptions.map((option, index) => (
+                            <SelectItem
+                              key={index}
+                              value={option.value}
+                              className="text-lg"
+                            >
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
