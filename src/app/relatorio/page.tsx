@@ -10,7 +10,7 @@ export default function Relatorio() {
 
       <div className="w-full border">
         <iframe
-          src="https://metabase-tra.duckdns.org/public/dashboard/eff0c762-0441-4a5b-95c4-b0b982624627?data=&endere%25C3%25A7o="
+          src="https://metabase-tra.fly.dev/public/dashboard/40dfcdf1-9875-4787-ae4d-e960a309d42d"
           className="h-screen w-full"
         />
       </div>
